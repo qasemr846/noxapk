@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0c0e16"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22 role=%22img%22 aria-label=%22NOX%22%3E%3Cdefs%3E%3ClinearGradient id=%22nx-bg%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%232b3376%22/%3E%3Cstop offset=%221%22 stop-color=%22%230d0f1d%22/%3E%3C/linearGradient%3E%3CradialGradient id=%22nx-glow%22 cx=%220.34%22 cy=%220.3%22 r=%220.75%22%3E%3Cstop offset=%220%22 stop-color=%22%239aa8ff%22 stop-opacity=%220.38%22/%3E%3Cstop offset=%221%22 stop-color=%22%239aa8ff%22 stop-opacity=%220%22/%3E%3C/radialGradient%3E%3ClinearGradient id=%22nx-moon%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23fbf4de%22/%3E%3Cstop offset=%221%22 stop-color=%22%23d9c99a%22/%3E%3C/linearGradient%3E%3Cmask id=%22nx-cut%22%3E%3Crect width=%22128%22 height=%22128%22 fill=%22%23fff%22/%3E%3Ccircle cx=%2277%22 cy=%2253%22 r=%2228.5%22 fill=%22%23000%22/%3E%3C/mask%3E%3C/defs%3E%3Crect x=%224%22 y=%224%22 width=%22120%22 height=%22120%22 rx=%2230%22 fill=%22url(%23nx-bg)%22/%3E%3Crect x=%224%22 y=%224%22 width=%22120%22 height=%22120%22 rx=%2230%22 fill=%22url(%23nx-glow)%22/%3E%3Crect x=%224.5%22 y=%224.5%22 width=%22119%22 height=%22119%22 rx=%2229.5%22 fill=%22none%22 stroke=%22%23ffffff%22 stroke-opacity=%220.12%22/%3E%3Ccircle cx=%2258%22 cy=%2267%22 r=%2236%22 fill=%22url(%23nx-moon)%22 mask=%22url(%23nx-cut)%22/%3E%3Cpath d=%22M89 28Q90.6 38.4 101 40Q90.6 41.6 89 52Q87.4 41.6 77 40Q87.4 38.4 89 28Z%22 fill=%22%239aa8ff%22/%3E%3Ccircle cx=%2299%22 cy=%2276%22 r=%221.8%22 fill=%22%23e9dfc4%22 fill-opacity=%220.7%22/%3E%3Ccircle cx=%2234%22 cy=%2233%22 r=%221.5%22 fill=%22%23e9dfc4%22 fill-opacity=%220.55%22/%3E%3Ccircle cx=%22104%22 cy=%2258%22 r=%221.2%22 fill=%22%239aa8ff%22 fill-opacity=%220.8%22/%3E%3C/svg%3E "><script>try{if(localStorage.getItem("nox_lang_v1")==="en"){document.documentElement.lang="en";document.documentElement.dir="ltr"}}catch(e){}</script>
+<title>NOX - مدیریت زمان</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark}:root:has(.light-theme){color-scheme:light}
+body{--bg:#0c0e16;--panel:#141824;--panel2:#1c2130;--field:#0f121b;--text:#eceef6;--body:#cdd2e0;--muted:#98a0b6;--border:#242a3b;--line2:#343b52;--moon:#e9dfc4;
+--c-core:#9aa8ff;--c-settings:#b3bbd0;--c-notes:#f0c777;--c-gmail:#62a8ee;--c-noxcod:#9aa8ff;--c-vpn:#6fdcc8;--on-sec:#0c0e16;
+--danger:#ff9eab;--danger-bg:#ff9eab18;--danger-bd:#ff9eab45;--warn:#ebd08f;--warn-bg:#ebd08f12;--warn-bd:#ebd08f40;--ok:#86e8bb;--ok-bg:#86e8bb1c;--shadow:0 14px 40px #0009;--accent:var(--c-core)}
+body.light-theme{--bg:#f3f5fa;--panel:#fff;--panel2:#e9edf5;--field:#f6f8fc;--text:#161a26;--body:#394156;--muted:#5b6479;--border:#dde2ed;--line2:#c8cfdf;--moon:#c79a2e;
+--c-core:#4a5ad4;--c-settings:#566077;--c-notes:#a2650b;--c-gmail:#1f64b5;--c-noxcod:#4a5ad4;--c-vpn:#0c7f6e;--on-sec:#fff;
+--danger:#b0233b;--danger-bg:#b0233b12;--danger-bd:#b0233b44;--warn:#85560a;--warn-bg:#c9921b18;--warn-bd:#c9921b55;--ok:#0b7650;--ok-bg:#0b765016;--shadow:0 14px 40px #1b244033}
+#app{--sec:var(--c-core)}
+#app:has(.settings-hero){--sec:var(--c-settings)}#app:has(.notes-hero){--sec:var(--c-notes)}#app:has(.gmail-hero){--sec:var(--c-gmail)}#app:has(.project-hero){--sec:var(--c-noxcod)}#app:has(.vpn-hero){--sec:var(--c-vpn)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:72px}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:'Vazirmatn',Tahoma,'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid var(--sec,var(--accent));outline-offset:2px}
+.hidden{display:none!important}
+
+/* header: wordmark with crescent */
+header{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:11px;height:58px;padding-inline:max(20px,calc((100% - 720px)/2 + 16px));background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);font-size:20px;font-weight:800;letter-spacing:.18em}
+main{max-width:720px;margin:auto;padding:24px 16px 132px}
+h1{font-size:28px;font-weight:800;line-height:1.35;margin:4px 0 18px}
+.date-title{color:var(--muted);font-size:13px;margin:-8px 0 18px}
+
+/* section intro (open layout, tinted by section colour) */
+.project-hero,.vpn-hero,.gmail-hero,.notes-hero,.settings-hero{padding:2px 2px 22px;margin-bottom:20px;border-bottom:1px solid var(--border)}
+.project-hero h1,.vpn-hero h1,.gmail-hero h1,.notes-hero h1,.settings-hero h1{margin:12px 0 8px;font-size:30px}
+.project-hero p,.vpn-hero p,.gmail-hero p,.notes-hero p,.settings-hero p{margin:0;max-width:58ch;color:var(--muted);font-size:13.5px;line-height:2}
+.project-kicker{display:flex;align-items:center;gap:8px;color:var(--sec);font-size:12px;font-weight:700;letter-spacing:.06em}
+.project-kicker::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--sec);flex:none}
+.project-count{display:inline-flex;align-items:center;gap:7px;margin-top:16px;padding:6px 13px;border-radius:999px;background:color-mix(in srgb,var(--sec) 14%,transparent);color:var(--sec);font-size:12.5px;font-weight:600}
+.section-heading{display:flex;justify-content:space-between;align-items:baseline;margin:26px 2px 12px;font-size:14px;font-weight:800}
+.section-heading small{color:var(--muted);font-weight:400;font-size:12px}
+
+/* shared controls */
+label{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}
+input,select,textarea{width:100%;color:var(--text);background:var(--field);border:1px solid var(--line2);border-radius:12px;padding:13px 14px;font-size:15px;outline:none;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{border-color:var(--sec,var(--accent));box-shadow:0 0 0 3px color-mix(in srgb,var(--sec,var(--accent)) 22%,transparent)}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:.8}
+.add-project{flex:none;min-height:46px;border:0;border-radius:12px;padding:0 18px;background:var(--sec);color:var(--on-sec);font-weight:700;font-size:14px;cursor:pointer;transition:transform .1s,filter .15s}
+.add-project:hover{filter:brightness(1.07)}.add-project:active{transform:scale(.98)}
+.project-form{display:flex;gap:8px;padding:6px;background:var(--panel);border:1px solid var(--line2);border-radius:18px;margin:0 0 6px;transition:border-color .15s}
+.project-form:focus-within{border-color:var(--sec)}
+.project-form input,.project-form input:focus{min-width:0;flex:1;border:0;background:transparent;box-shadow:none;padding:12px}
+.gmail-form,.note-form,.vpn-form{display:grid;gap:10px;padding:14px;background:var(--panel);border:1px solid var(--border);border-radius:18px;margin:0 0 6px}
+.note-form textarea{min-height:120px;resize:vertical;line-height:1.9}
+.note-form select,.settings-card select{appearance:auto}
+
+/* list rows */
+.project-list,.note-list,.server-list,.settings-grid{display:grid;gap:10px}
+.project-item,.gmail-item{display:flex;align-items:center;gap:13px;padding:13px 14px;background:var(--panel);border:1px solid var(--border);border-radius:16px}
+.project-symbol,.gmail-symbol,.server-icon,.ico{width:44px;height:44px;display:grid;place-items:center;flex:none;border-radius:13px;background:color-mix(in srgb,var(--sec,var(--accent)) 15%,transparent);color:var(--sec,var(--accent));font-size:20px}
+.project-name{flex:1;min-width:0;overflow-wrap:anywhere;font-size:15px;font-weight:700}
+.project-number{display:block;color:var(--muted);font-size:11.5px;font-weight:400;margin-top:2px}
+.gmail-info{flex:1;min-width:0;overflow-wrap:anywhere}.gmail-label{font-size:14.5px;font-weight:700}
+.gmail-address{direction:ltr;text-align:right;color:var(--sec);font-size:13px;margin-top:4px;overflow-wrap:anywhere}
+.gmail-note{color:var(--muted);font-size:12.5px;margin-top:4px;line-height:1.8}
+.delete-project{flex:none;width:38px;height:38px;border:1px solid var(--danger-bd);border-radius:11px;background:var(--danger-bg);color:var(--danger);font-size:20px;line-height:1;cursor:pointer;transition:background .15s}
+.delete-project:hover{background:color-mix(in srgb,var(--danger) 26%,transparent)}
+.project-empty,.gmail-empty,.note-empty{text-align:center;padding:34px 18px;border:1.5px dashed var(--line2);border-radius:18px;color:var(--muted);line-height:2;font-size:13.5px}
+.project-empty span{display:block;font-size:30px;margin-bottom:6px;color:var(--sec)}
+.simple-row{display:flex;justify-content:space-between;align-items:center;gap:16px;background:var(--panel);border:1px solid var(--border);padding:14px 16px;border-radius:14px;margin:9px 0}
+.simple-row strong{font-variant-numeric:tabular-nums}
+
+/* time tasks (kept from the original) */
+.task{display:flex;align-items:center;gap:14px;width:100%;text-align:right;color:inherit;background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:14px;margin:10px 0;cursor:pointer;font:inherit}
+.task:active{background:var(--panel2)}.task-info{flex:1}.task-title{font-size:15.5px;font-weight:700}.task-sub{display:block;color:var(--muted);font-size:13px;margin-top:4px}.minutes{white-space:nowrap;color:var(--accent);font-size:14px;font-weight:600}.soon{cursor:default;opacity:.7}
+
+/* notes */
+.note-tools{display:flex;gap:8px;margin:14px 0 0}.note-tools input{min-width:0;font-size:14px}
+.note-card{padding:16px;border:1px solid var(--border);border-radius:16px;background:var(--panel)}
+.note-card.pinned{border-color:color-mix(in srgb,var(--sec) 55%,var(--border));box-shadow:inset -3px 0 0 var(--sec)}
+.note-card-top{display:flex;align-items:flex-start;gap:10px}.note-card-title{font-size:15px;font-weight:800;flex:1;overflow-wrap:anywhere}
+.note-category{font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--sec) 15%,transparent);color:var(--sec);white-space:nowrap}
+.note-body{font-size:13.5px;color:var(--body);line-height:2;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:10px}
+.note-meta{font-size:11.5px;color:var(--muted);margin-top:12px}
+.note-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.note-actions button,.settings-card button,.server-actions button{min-height:40px;border:1px solid var(--line2);border-radius:11px;padding:0 14px;background:var(--panel2);color:var(--text);font-size:12.5px;font-weight:500;cursor:pointer;transition:background .15s,border-color .15s}
+.note-actions button:hover,.settings-card button:hover,.server-actions button:hover{border-color:var(--muted)}
+.note-actions .danger,.settings-card .danger{color:var(--danger);border-color:var(--danger-bd);background:var(--danger-bg)}
+
+/* settings */
+.settings-card{padding:18px;background:var(--panel);border:1px solid var(--border);border-radius:16px}
+.settings-card h3{font-size:15px;font-weight:800;margin:0 0 6px}
+.settings-card p{font-size:12.5px;line-height:1.9;color:var(--muted);margin:0 0 14px}
+.settings-row{display:flex;align-items:center;justify-content:space-between;gap:12px}.settings-row span{font-size:13.5px}
+.settings-row select{width:auto;min-width:150px;padding:10px 12px;font-size:14px}
+.settings-actions{display:flex;gap:8px;flex-wrap:wrap}.settings-actions button{font-size:13px}
+.settings-status{font-size:12px;color:var(--muted);line-height:1.9;margin-top:12px}
+.settings-card input[type=file]{font-size:12px;padding:8px}
+
+/* gmail / vpn notices */
+.vpn-note,.gmail-warning{padding:12px 14px;border:1px solid var(--warn-bd);background:var(--warn-bg);color:var(--warn);border-radius:14px;font-size:12.5px;line-height:2;margin:0 0 18px}
+.gmail-warning{margin-bottom:16px}
+
+/* vpn servers */
+.server-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:15px}
+.server-top{display:flex;align-items:center;gap:12px}
+.server-meta{flex:1;min-width:0}.server-name{font-weight:700;font-size:14px;overflow-wrap:anywhere}
+.server-host{direction:ltr;text-align:right;color:var(--muted);font:11.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin-top:4px;overflow-wrap:anywhere}
+.server-status{font-size:11.5px;font-weight:600;border-radius:999px;padding:5px 11px;background:var(--panel2);color:var(--muted);white-space:nowrap}
+.server-status.warn{background:var(--warn-bg);color:var(--warn)}.server-status.ok{background:var(--ok-bg);color:var(--ok)}.server-status.bad{background:var(--danger-bg);color:var(--danger)}
+.server-actions{display:flex;gap:8px;margin-top:14px}.server-actions button{flex:1;min-width:0;padding:0 8px}
+.server-actions button.primary{background:var(--sec);color:var(--on-sec);border-color:transparent;font-weight:700}
+.server-actions button:disabled{opacity:.45;cursor:default}
+.vpn-all{width:100%;min-height:46px;margin:0 0 16px;border:1px solid color-mix(in srgb,var(--sec) 45%,var(--line2));border-radius:12px;background:color-mix(in srgb,var(--sec) 12%,transparent);color:var(--sec);font-size:14px;font-weight:700;cursor:pointer}.vpn-all:disabled{opacity:.6;cursor:default}
+.server-result{font-size:12px;color:var(--muted);margin-top:10px;min-height:18px;line-height:1.8}
+
+/* bottom dock */
+nav{position:fixed;z-index:3;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));max-width:696px;margin-inline:auto;display:flex;gap:2px;padding:6px;background:color-mix(in srgb,var(--panel) 90%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--line2);border-radius:26px;box-shadow:var(--shadow)}
+nav button{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px 7px;border:0;border-radius:20px;background:transparent;color:var(--muted);font-size:11px;font-weight:500;line-height:1.3;cursor:pointer;transition:color .15s}
+nav button i{width:52px;height:30px;display:grid;place-items:center;border-radius:15px;transition:background .2s,color .2s}
+nav button:hover i{background:color-mix(in srgb,var(--c) 10%,transparent)}
+nav button.active{color:var(--text);font-weight:700}
+nav button.active i{background:color-mix(in srgb,var(--c) 20%,transparent);color:var(--c)}
+nav svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav [data-tab=settings]{--c:var(--c-settings)}nav [data-tab=notes]{--c:var(--c-notes)}nav [data-tab=gmail]{--c:var(--c-gmail)}nav [data-tab=noxcod]{--c:var(--c-noxcod)}nav [data-tab=vpn]{--c:var(--c-vpn)}
+
+/* dialog + toast (respond to actions) */
+.overlay{position:fixed;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:18px;background:#05070cb8;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:nox-fade .18s ease-out}
+.dialog{width:min(100%,420px);background:var(--panel);border:1px solid var(--line2);border-radius:24px;padding:24px;box-shadow:var(--shadow);animation:nox-pop .22s cubic-bezier(.2,.9,.3,1.1)}
+.dialog h2{font-size:19px;font-weight:800;margin:0 0 18px}.dialog input{font-size:18px}
+.actions{display:flex;gap:10px;margin-top:20px}.actions button{flex:1;min-height:46px;border-radius:12px;border:1px solid var(--line2);font-size:14px;cursor:pointer}
+.cancel{background:transparent;color:var(--text)}.save{background:var(--accent);color:var(--on-sec);border-color:transparent!important;font-weight:700}
+.toast{position:fixed;z-index:10;bottom:calc(98px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);border-radius:999px;padding:10px 20px;font-size:13px;font-weight:600;box-shadow:var(--shadow);max-width:90%;white-space:nowrap;animation:nox-rise .22s ease-out}
+
+/* connect dialog */
+.connect-dialog{--sec:var(--c-vpn);max-height:calc(100vh - 36px);overflow:auto}
+.connect-dialog h2{margin-bottom:4px;overflow-wrap:anywhere}
+.cn-host{direction:ltr;text-align:right;color:var(--muted);font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+.cn-sec{margin-top:20px}.cn-sec h3{font-size:13.5px;font-weight:800;margin:0 0 4px}.cn-sec p{font-size:12px;line-height:1.9;color:var(--muted);margin:0 0 11px}
+.cn-qr{width:min(100%,240px);aspect-ratio:1;margin:0 auto;padding:6px;background:#fff;border-radius:16px;border:1px solid var(--line2)}.cn-qr svg{display:block;width:100%;height:100%}
+.cn-fail{padding:14px;border:1.5px dashed var(--line2);border-radius:14px;color:var(--muted);font-size:12.5px;text-align:center}
+.cn-apps{display:grid;gap:8px}
+a.cn-app{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:46px;padding:0 14px;border-radius:12px;border:1px solid var(--line2);background:var(--panel2);color:var(--text);text-decoration:none;font-size:14px;font-weight:700;transition:border-color .15s}
+a.cn-app:hover{border-color:var(--sec)}a.cn-app small{color:var(--muted);font-size:11px;font-weight:400}
+.cn-copy{width:100%}
+
+/* live connection panel (driven by the native app, or by the preview simulator) */
+.vpn-native-hint{padding:12px 14px;border:1.5px dashed var(--line2);border-radius:14px;color:var(--muted);font-size:12.5px;line-height:2;margin:0 0 14px}
+.vpn-native-hint button,.vc-sim button{border:0;background:transparent;color:var(--sec);font-weight:700;font-size:12.5px;cursor:pointer;padding:0 4px;text-decoration:underline}
+.vpn-conn{padding:16px;background:var(--panel);border:1px solid var(--line2);border-radius:20px;margin:0 0 16px}
+.vc-sim{display:flex;justify-content:space-between;align-items:center;margin:-4px -4px 12px;padding:6px 12px;border-radius:10px;background:var(--warn-bg);color:var(--warn);font-size:11.5px}
+.vc-top{display:flex;align-items:center;gap:12px}.vc-info{flex:1;min-width:0}
+.vc-dot{flex:none;width:12px;height:12px;border-radius:50%;background:var(--muted)}.vc-dot.connected{background:var(--ok);box-shadow:0 0 0 5px var(--ok-bg)}.vc-dot.connecting{background:var(--warn);animation:nox-pulse 1s ease-in-out infinite}.vc-dot.error{background:var(--danger)}
+.vc-state{font-size:17px;font-weight:800}.vc-server{font-size:12.5px;color:var(--muted);overflow-wrap:anywhere;margin-top:1px}
+.vc-btn{flex:none;min-height:42px;padding:0 16px;border-radius:12px;border:1px solid var(--danger-bd);background:var(--danger-bg);color:var(--danger);font-size:13px;font-weight:700;cursor:pointer}
+.vc-spark{display:block;width:100%;height:44px;margin:14px 0 6px}.vc-spark polyline{stroke:var(--sec);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.vc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.vc-grid>div{padding:11px 13px;background:var(--panel2);border-radius:13px}
+.vc-grid small{display:block;color:var(--muted);font-size:11.5px}.vc-grid b{display:block;margin-top:2px;font-size:18px;font-weight:800;font-variant-numeric:tabular-nums;text-align:right}
+.server-card.live{border-color:var(--sec);box-shadow:inset 0 0 0 1px var(--sec)}
+.server-card.live .server-name::after{content:var(--lbl-live," · متصل");color:var(--ok);font-size:12px;font-weight:600}.server-card.connecting .server-name::after{content:var(--lbl-connecting," · در حال اتصال");color:var(--warn);font-size:12px;font-weight:600}
+.server-actions button.primary.stop{background:var(--danger-bg);color:var(--danger);border-color:var(--danger-bd)}
+@keyframes nox-pulse{50%{opacity:.35}}
+@keyframes nox-fade{from{opacity:0}}
+@keyframes nox-pop{from{opacity:0;transform:translateY(12px) scale(.97)}}
+@keyframes nox-rise{from{opacity:0;transform:translate(-50%,8px)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(max-width:380px){h1,.project-hero h1,.vpn-hero h1,.gmail-hero h1,.notes-hero h1,.settings-hero h1{font-size:25px}nav button i{width:44px}.settings-row{flex-wrap:wrap}}
+
+
+/* ===== v2 additions: logo, autosave, vpn form, settings, ltr ===== */
+.logo{width:32px;height:32px;flex:none;display:block}
+.logo-lg{width:64px;height:64px;flex:none;display:block}
+.about-card{display:flex;align-items:center;gap:16px}.about-card h3{margin:0 0 2px;letter-spacing:.18em;font-size:18px}.about-card p{margin:0}
+.settings-row+.settings-row{margin-top:12px}
+.settings-card .settings-status{margin-top:10px}
+.switch{appearance:none;-webkit-appearance:none;flex:none;width:48px;height:28px;padding:0;margin:0;border-radius:999px;background:var(--panel2);border:1px solid var(--line2);position:relative;cursor:pointer;transition:background .2s,border-color .2s}
+.switch::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:20px;height:20px;border-radius:50%;background:var(--muted);transition:transform .2s,background .2s}
+.switch:checked{background:color-mix(in srgb,var(--c-core) 35%,transparent);border-color:var(--c-core)}
+.switch:checked::after{background:var(--c-core);transform:translateX(20px)}
+[dir=rtl] .switch:checked::after{transform:translateX(-20px)}
+.draft-status{font-size:11.5px;color:var(--ok);margin:8px 4px 0;min-height:18px;opacity:0;transition:opacity .25s}.draft-status.on{opacity:1}
+.vpn-form{display:grid;gap:10px;padding:14px;background:var(--panel);border:1px solid var(--border);border-radius:18px;margin:0 0 6px}
+.vpn-form textarea{min-height:92px;resize:vertical;font:12.5px/1.8 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.vpn-form-actions{display:flex;gap:8px;flex-wrap:wrap}.vpn-form-actions .add-project{flex:1;min-width:140px}
+.btn-ghost{flex:none;min-height:46px;border:1px solid var(--line2);border-radius:12px;padding:0 16px;background:var(--panel2);color:var(--text);font-size:13.5px;font-weight:600;cursor:pointer;transition:border-color .15s}.btn-ghost:hover{border-color:var(--muted)}
+.server-actions button.danger{flex:none;padding:0 12px;color:var(--danger);border-color:var(--danger-bd);background:var(--danger-bg)}
+.vpn-note{margin-top:14px}
+.toast{white-space:normal;text-align:center;width:max-content}
+[dir=ltr] .gmail-address,[dir=ltr] .server-host,[dir=ltr] .cn-host,[dir=ltr] .vc-grid b{text-align:left}
+[dir=ltr] .note-card.pinned{box-shadow:inset 3px 0 0 var(--sec)}
+[dir=ltr] header{letter-spacing:.2em}
+
+</style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+    <linearGradient id="nx-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2b3376"/>
+      <stop offset="1" stop-color="#0d0f1d"/>
+    </linearGradient>
+    <radialGradient id="nx-glow" cx="0.34" cy="0.3" r="0.75">
+      <stop offset="0" stop-color="#9aa8ff" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#9aa8ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="nx-moon" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbf4de"/>
+      <stop offset="1" stop-color="#d9c99a"/>
+    </linearGradient>
+    <mask id="nx-cut">
+      <rect width="128" height="128" fill="#fff"/>
+      <circle cx="77" cy="53" r="28.5" fill="#000"/>
+    </mask>
+  </defs><symbol id="nox-logo" viewBox="0 0 128 128"><rect x="4" y="4" width="120" height="120" rx="30" fill="url(#nx-bg)"/>
+  <rect x="4" y="4" width="120" height="120" rx="30" fill="url(#nx-glow)"/>
+  <rect x="4.5" y="4.5" width="119" height="119" rx="29.5" fill="none" stroke="#ffffff" stroke-opacity="0.12"/>
+  <circle cx="58" cy="67" r="36" fill="url(#nx-moon)" mask="url(#nx-cut)"/>
+  <path d="M89 28Q90.6 38.4 101 40Q90.6 41.6 89 52Q87.4 41.6 77 40Q87.4 38.4 89 28Z" fill="#9aa8ff"/>
+  <circle cx="99" cy="76" r="1.8" fill="#e9dfc4" fill-opacity="0.7"/>
+  <circle cx="34" cy="33" r="1.5" fill="#e9dfc4" fill-opacity="0.55"/>
+  <circle cx="104" cy="58" r="1.2" fill="#9aa8ff" fill-opacity="0.8"/></symbol></svg><header><svg class="logo" aria-hidden="true"><use href="#nox-logo"/></svg><span>NOX</span></header><main id="app"></main><nav aria-label="ناوبری اصلی"><button class="active" data-tab="settings"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg></i><span>تنظیمات</span></button><button data-tab="notes"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></i><span>یادداشت</span></button><button data-tab="gmail"><i><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></i><span>جیمیل</span></button><button data-tab="noxcod"><i><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></i><span>noxcod</span></button><button data-tab="vpn"><i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg></i><span>vpn</span></button></nav><div id="modal-root"></div><div id="toast" class="toast hidden"></div>
+<script>
+(()=>{'use strict';
+const STORE='nox_days_v1',K_NOTES='nox_notes_v1',K_PROJ='noxcod_projects_v1',K_GMAIL='nox_gmail_notes_v1',K_VPN='nox_vpn_v1',K_THEME='nox_theme_v1',K_LANG='nox_lang_v1',K_PREFS='nox_prefs_v1',K_DRAFT='nox_drafts_v1';
+const TABS=['settings','notes','gmail','noxcod','vpn'];
+
+/* ---------- translations ---------- */
+const I={
+fa:{
+title:'NOX - مدیریت زمان',nav_aria:'ناوبری اصلی',nav_settings:'تنظیمات',nav_notes:'یادداشت',nav_gmail:'جیمیل',nav_noxcod:'noxcod',nav_vpn:'vpn',
+err_storage:'ذخیره‌سازی در این مرورگر ممکن نیست',err_storage_notes:'ذخیره‌سازی ممکن نیست؛ فضای مرورگر را بررسی کن',
+delete:'حذف',close:'بستن',ready:'آماده',connect:'اتصال',disconnect:'قطع اتصال',copy_link:'کپی لینک',link_copied:'لینک کپی شد',copy_prompt:'لینک را کپی کن:',
+draft_saved:'✓ پیش‌نویس خودکار ذخیره شد · {0}',draft_restored:'✓ پیش‌نویس قبلی بازیابی شد',
+notes_h1:'دفتر یادداشت',notes_p:'ایده‌ها، کارهای مهم، یادآوری‌ها و نکته‌ها را در یک فضای مرتب ثبت کن. یادداشت‌های سنجاق‌شده همیشه بالاتر نمایش داده می‌شوند.',notes_count:'✎ {0} یادداشت',
+note_title_ph:'عنوان یادداشت',note_cat:'دسته‌بندی',note_body_ph:'هر چیزی که می‌خواهی یادت بماند بنویس…',note_body_aria:'متن یادداشت',note_save:'＋ ذخیره یادداشت',save_changes:'ذخیره تغییرات',
+note_search_ph:'⌕ جست‌وجو در یادداشت‌ها…',note_search_aria:'جست‌وجوی یادداشت',notes_mine:'یادداشت‌های من',n_items:'{0} مورد',no_text:'بدون متن',edited:'ویرایش‌شده',created:'ثبت‌شده',
+unpin:'برداشتن سنجاق',pin:'📌 سنجاق کردن',edit:'ویرایش',note_none_found:'یادداشتی با این عبارت پیدا نشد.',note_none:'هنوز یادداشتی نداری. اولین یادداشتت را از فرم بالا بساز.',
+note_del_confirm:'این یادداشت حذف شود؟',note_deleted:'یادداشت حذف شد',note_need_title:'عنوان یادداشت را وارد کن',note_updated:'یادداشت ویرایش شد',note_saved:'یادداشت ذخیره شد',notes_cleared:'یادداشت‌ها پاک شدند',
+gmail_h1:'یادداشت جیمیل‌ها',gmail_p:'آدرس‌های جیمیل و یادداشت مربوط به هر حساب را اینجا نگه دار تا فراموش نکنی.',gmail_count:'✉️ {0} حساب ثبت‌شده',
+gmail_warn:'برای امنیت، رمز عبور یا کدهای بازیابی را اینجا وارد نکن؛ فقط آدرس و یادداشت غیرحساس ذخیره کن.',
+gmail_label_ph:'عنوان حساب؛ مثلاً شخصی یا کاری',gmail_label_aria:'عنوان حساب',gmail_addr_ph:'آدرس جیمیل؛ example@gmail.com',gmail_addr_aria:'آدرس جیمیل',gmail_note_ph:'یادداشت اختیاری؛ مثلاً برای چه کاری است',gmail_note_aria:'یادداشت اختیاری',
+gmail_add:'＋ افزودن جیمیل',gmail_saved_h:'حساب‌های ثبت‌شده',gmail_yours:'یادداشت‌های شما',gmail_no_yet:'هنوز حسابی ثبت نشده',
+gmail_empty:'هنوز جیمیلی ثبت نکردی.<br>عنوان و آدرس حساب را در فرم بالا بنویس.',gmail_del_aria:'حذف جیمیل',gmail_del_confirm:'این حساب از فهرست حذف شود؟',gmail_removed:'حساب حذف شد',
+gmail_need:'عنوان و آدرس جیمیل را وارد کن',gmail_dup:'این آدرس قبلاً ثبت شده',gmail_added:'جیمیل ثبت شد',
+proj_h1:'پروژه‌های برنامه‌نویسی',proj_p:'اسم پروژه‌هات رو اینجا ثبت کن تا همه‌شون یک‌جا مرتب و در دسترس باشن.',proj_count:'💻 {0} پروژه ثبت‌شده',proj_ph:'مثلاً: وب‌سایت فروشگاهی',proj_aria:'اسم پروژه',proj_add:'＋ افزودن',
+proj_list_h:'لیست پروژه‌ها',proj_yours:'پروژه‌های شما',proj_start:'شروع فضای کاری',proj_n:'پروژه {0}',proj_del_aria:'حذف پروژه',proj_empty:'هنوز پروژه‌ای ثبت نکردی.<br>اسم اولین پروژه‌ات رو بالا وارد کن.',
+proj_del_confirm:'پروژه «{0}» حذف شود؟',proj_deleted:'پروژه حذف شد',proj_dup:'این پروژه قبلاً ثبت شده',proj_added:'پروژه اضافه شد',
+vpn_h1:'سرورهای VPN',vpn_p:'سرورها را تست کن، بعد با «اتصال» کانفیگ را با QR یا یک لمس به اپ VPN بفرست.',vpn_count:'🔑 {0} کانفیگ',
+vpn_note:'مرورگر اجازه‌ی پینگ ICMP نمی‌دهد؛ این تست زمان اتصال امن (TCP + TLS) به همان پورت سرور را اندازه می‌گیرد، پس کمی بیشتر از پینگ واقعی است ولی برای مقایسه‌ی سرورها با هم دقیق است. کانفیگ‌هایی که آدرس ناقص یا نمونه‌ای دارند تست نمی‌شوند.',
+vpn_add_h:'افزودن کانفیگ',vpn_add_s:'vless · vmess · trojan · ss',vpn_link_ph:'لینک کانفیگ را اینجا بچسبان (vless:// ، vmess:// ، trojan:// ، ss://)؛ هر خط یک کانفیگ',vpn_link_aria:'لینک کانفیگ',vpn_name_ph:'نام دلخواه (اختیاری)',vpn_name_aria:'نام دلخواه',
+vpn_add_btn:'＋ افزودن کانفیگ',vpn_paste:'📋 چسباندن از کلیپ‌بورد',vpn_paste_fail:'کلیپ‌بورد قابل خواندن نیست؛ لینک را دستی بچسبان',
+vpn_added:'{0} کانفیگ اضافه شد',vpn_dup_n:'{0} مورد تکراری',vpn_bad_n:'{0} لینک نامعتبر',vpn_none:'کانفیگ معتبری پیدا نشد؛ لینک باید با vless:// ، vmess:// ، trojan:// یا ss:// شروع شود',vpn_all_dup:'این کانفیگ‌ها قبلاً ثبت شده‌اند',
+vpn_del_confirm:'کانفیگ «{0}» حذف شود؟',vpn_deleted:'کانفیگ حذف شد',vpn_list_h:'کانفیگ‌ها',vpn_list_s:'{0} مورد',vpn_empty:'هنوز کانفیگی نداری.<br>لینک را در فرم بالا بچسبان.',
+vpn_test_all:'⚡ تست همه سرورها',vpn_testing_all:'در حال تست سرورها…',vpn_test_again:'⚡ تست دوباره همه سرورها',test_ping:'تست پینگ',test_hint:'برای سنجش سرعت اتصال، «تست پینگ» را بزن.',
+testing:'در حال تست',connecting_port:'در حال اتصال به پورت {0} …',no_reply:'بدون پاسخ',no_reply_long:'سرور تا ۴.۵ ثانیه پاسخ نداد؛ ممکن است خاموش، فیلتر یا غیرقابل دسترس باشد.',sample_n:'نمونه {0} از ۳ …',replied:'سرور پاسخ داد · بهترین: {0} · میانگین {1} نمونه: {2}',
+native_hint:'اتصال مستقیم، سرعت و مصرف فقط داخل اپ اندروید NOX فعال می‌شوند. ',native_preview:'پیش‌نمایش ظاهر (شبیه‌سازی)',sim_bar:'شبیه‌سازی · عددها واقعی نیستند',sim_exit:'خروج',
+st_disconnected:'قطع',st_connecting:'در حال اتصال…',st_connected:'متصل',st_error:'خطا در اتصال',badge_live:'متصل',badge_connecting:'در حال اتصال',pick_server:'یک سرور را از فهرست انتخاب کن',
+down:'↓ دانلود',up:'↑ آپلود',sess:'مصرف این اتصال',total:'مصرف کل',conn_fail:'اتصال شروع نشد',
+cn_aria:'اتصال به سرور',cn_scan_h:'اسکن با گوشی',cn_scan_p:'در اپ VPN روی «+» بزن و «اسکن QR» را انتخاب کن. QR همین‌جا روی دستگاه ساخته می‌شود و جایی ارسال نمی‌شود.',cn_toolong:'این لینک برای QR زیادی طولانی است؛ از کپی استفاده کن.',
+cn_open_h:'باز کردن مستقیم در اپ',cn_open_p:'اپ باید روی همین دستگاه نصب باشد. اگر چیزی باز نشد، از «کپی» پایین استفاده کن.',cn_hiddify:'اندروید · iOS · ویندوز · مک',
+cn_manual_h:'کپی و وارد کردن دستی',cn_manual_p:'<bdi>v2rayNG</bdi> (اندروید): روی «+» بزن و <bdi>Import config from clipboard</bdi> را انتخاب کن.<br><bdi>v2rayN</bdi> (ویندوز): بعد از کپی، داخل برنامه <bdi>Ctrl+V</bdi> بزن.',
+cn_status:'اتصال را خود اپ VPN برقرار می‌کند؛ این صفحه فقط کانفیگ را به آن می‌رساند.',
+set_h1:'تنظیمات برنامه',set_p:'زبان، ظاهر، ذخیره خودکار و پشتیبان‌گیری را از اینجا کنترل کن.',set_pill:'مرکز کنترل NOX',
+set_look_h:'زبان و ظاهر',set_look_p:'زبان، تم و صفحه‌ی شروع برنامه را انتخاب کن. انتخاب تو ذخیره می‌شود.',set_lang:'زبان',set_theme:'حالت نمایش',theme_dark:'تیره',theme_light:'روشن',theme_system:'مطابق سیستم',set_start:'صفحه شروع',start_last:'آخرین صفحه‌ی باز',
+lang_changed:'زبان برنامه تغییر کرد',theme_changed:'ظاهر برنامه تغییر کرد',pref_saved:'تنظیم ذخیره شد',
+set_auto_h:'ذخیره خودکار',set_auto_p:'هر چه در فرم‌ها تایپ می‌کنی همان لحظه به‌صورت پیش‌نویس ذخیره می‌شود. اگر صفحه یا برنامه ناگهان بسته شود، موقع برگشتن همه‌چیز سر جایش است.',set_auto_toggle:'ذخیره خودکار پیش‌نویس‌ها',
+set_auto_note:'یادداشت‌ها، حساب‌ها، پروژه‌ها و کانفیگ‌ها هم به‌محض افزودن، ویرایش یا حذف در حافظه‌ی دستگاه ذخیره می‌شوند.',auto_off:'ذخیره خودکار خاموش است.',auto_last:'آخرین ذخیره خودکار: {0}',auto_none:'هنوز پیش‌نویسی ذخیره نشده.',auto_on_toast:'ذخیره خودکار روشن شد',auto_off_toast:'ذخیره خودکار خاموش شد',
+set_backup_h:'پشتیبان‌گیری و بازیابی',set_backup_p:'از یادداشت‌ها، پروژه‌ها، جیمیل‌های ذخیره‌شده، کانفیگ‌های VPN و داده‌های زمان نسخه پشتیبان بگیر یا نسخه قبلی را برگردان.',export:'⬇ خروجی گرفتن از اطلاعات',restore:'⬆ بازیابی از فایل',backup_aria:'فایل پشتیبان',
+backup_status:'فایل پشتیبان JSON است. آن را در جای امن نگه دار؛ اطلاعات فقط در همین مرورگر ذخیره می‌شوند.',backup_ready:'فایل پشتیبان آماده شد',restore_confirm:'اطلاعات فعلی با نسخه پشتیبان جایگزین شود؟',restore_ok:'پشتیبان با موفقیت بازیابی شد',restore_bad:'فایل پشتیبان معتبر نیست یا قابل خواندن نیست',
+set_over_h:'وضعیت اطلاعات',set_over_p:'نمای کلی از داده‌هایی که در این دستگاه ذخیره شده‌اند.',ov_notes:'یادداشت‌ها',ov_proj:'پروژه‌های noxcod',ov_gmail:'حساب‌های جیمیل',ov_vpn:'کانفیگ‌های VPN',ov_days:'روزهای ثبت زمان',
+set_manage_h:'مدیریت داده‌ها',set_manage_p:'پاک‌سازی برگشت‌ناپذیر است. بهتر است قبلش یک فایل پشتیبان بگیری.',clear_notes:'پاک‌کردن یادداشت‌ها',reset_all:'بازنشانی کامل برنامه',clear_confirm:'همه یادداشت‌ها برای همیشه پاک شوند؟',reset_confirm:'تمام زمان‌ها، پروژه‌ها، جیمیل‌ها، یادداشت‌ها، کانفیگ‌های VPN و تنظیمات پاک شوند؟ این کار برگشت‌پذیر نیست.',reset_done:'برنامه بازنشانی شد',
+set_priv_h:'حریم خصوصی',set_priv_p:'این نسخه اطلاعات را در حافظه محلی مرورگر (localStorage) نگه می‌دارد و به‌صورت خودکار به حساب آنلاین همگام نمی‌کند. پاک‌کردن داده‌های مرورگر ممکن است اطلاعات را حذف کند. رمز عبور و کدهای بازیابی را در یادداشت‌ها ننویس.',
+persist_yes:'مرورگر این حافظه را در برابر پاک‌شدن خودکار محافظت کرده است.',persist_no:'حافظه در برابر پاک‌شدن خودکار محافظت‌شده نیست؛ برای اطمینان خروجی پشتیبان بگیر.',
+about_p:'ابزار شخصی برای نظم‌دهی زمان، پروژه‌ها و یادداشت‌ها'
+},
+en:{
+title:'NOX - Time Manager',nav_aria:'Main navigation',nav_settings:'Settings',nav_notes:'Notes',nav_gmail:'Gmail',nav_noxcod:'noxcod',nav_vpn:'VPN',
+err_storage:'Storage is unavailable in this browser',err_storage_notes:"Can't save; check the browser's storage space",
+delete:'Delete',close:'Close',ready:'Ready',connect:'Connect',disconnect:'Disconnect',copy_link:'Copy link',link_copied:'Link copied',copy_prompt:'Copy the link:',
+draft_saved:'✓ Draft autosaved · {0}',draft_restored:'✓ Previous draft restored',
+notes_h1:'Notebook',notes_p:'Capture ideas, important tasks, reminders and tips in one tidy place. Pinned notes always stay on top.',notes_count:'✎ {0} notes',
+note_title_ph:'Note title',note_cat:'Category',note_body_ph:'Write anything you want to remember…',note_body_aria:'Note text',note_save:'＋ Save note',save_changes:'Save changes',
+note_search_ph:'⌕ Search notes…',note_search_aria:'Search notes',notes_mine:'My notes',n_items:'{0} items',no_text:'No text',edited:'Edited',created:'Created',
+unpin:'Unpin',pin:'📌 Pin',edit:'Edit',note_none_found:'No notes match this search.',note_none:"You don't have any notes yet. Create your first one from the form above.",
+note_del_confirm:'Delete this note?',note_deleted:'Note deleted',note_need_title:'Enter a note title',note_updated:'Note updated',note_saved:'Note saved',notes_cleared:'Notes cleared',
+gmail_h1:'Gmail Notes',gmail_p:'Keep your Gmail addresses and a note for each account here so you never forget them.',gmail_count:'✉️ {0} accounts saved',
+gmail_warn:'For your security, never enter passwords or recovery codes here; store only the address and non-sensitive notes.',
+gmail_label_ph:'Account label, e.g. Personal or Work',gmail_label_aria:'Account label',gmail_addr_ph:'Gmail address, e.g. me@gmail.com',gmail_addr_aria:'Gmail address',gmail_note_ph:'Optional note, e.g. what it is used for',gmail_note_aria:'Optional note',
+gmail_add:'＋ Add Gmail',gmail_saved_h:'Saved accounts',gmail_yours:'Your notes',gmail_no_yet:'No accounts yet',
+gmail_empty:"You haven't saved any Gmail yet.<br>Enter a label and address in the form above.",gmail_del_aria:'Delete Gmail',gmail_del_confirm:'Remove this account from the list?',gmail_removed:'Account removed',
+gmail_need:'Enter a label and a Gmail address',gmail_dup:'This address is already saved',gmail_added:'Gmail saved',
+proj_h1:'Coding Projects',proj_p:'Log your project names here so they are all organized and within reach.',proj_count:'💻 {0} projects saved',proj_ph:'e.g. Online store website',proj_aria:'Project name',proj_add:'＋ Add',
+proj_list_h:'Project list',proj_yours:'Your projects',proj_start:'Start your workspace',proj_n:'Project {0}',proj_del_aria:'Delete project',proj_empty:"You haven't added a project yet.<br>Enter your first project's name above.",
+proj_del_confirm:'Delete project "{0}"?',proj_deleted:'Project deleted',proj_dup:'This project is already saved',proj_added:'Project added',
+vpn_h1:'VPN Servers',vpn_p:'Test the servers, then tap "Connect" to send the config to your VPN app via QR or a single tap.',vpn_count:'🔑 {0} configs',
+vpn_note:"Browsers can't send ICMP pings; this test measures the secure connection time (TCP + TLS) to the server's port, so it reads slightly higher than a real ping but is accurate for comparing servers. Configs with incomplete or placeholder addresses are not tested.",
+vpn_add_h:'Add config',vpn_add_s:'vless · vmess · trojan · ss',vpn_link_ph:'Paste a config link here (vless://, vmess://, trojan://, ss://); one config per line',vpn_link_aria:'Config link',vpn_name_ph:'Custom name (optional)',vpn_name_aria:'Custom name',
+vpn_add_btn:'＋ Add config',vpn_paste:'📋 Paste from clipboard',vpn_paste_fail:"Can't read the clipboard; paste the link manually",
+vpn_added:'{0} config(s) added',vpn_dup_n:'{0} duplicate(s)',vpn_bad_n:'{0} invalid link(s)',vpn_none:'No valid config found; the link must start with vless://, vmess://, trojan:// or ss://',vpn_all_dup:'These configs are already saved',
+vpn_del_confirm:'Delete config "{0}"?',vpn_deleted:'Config deleted',vpn_list_h:'Configs',vpn_list_s:'{0} items',vpn_empty:"You don't have any configs yet.<br>Paste a link in the form above.",
+vpn_test_all:'⚡ Test all servers',vpn_testing_all:'Testing servers…',vpn_test_again:'⚡ Test all servers again',test_ping:'Test ping',test_hint:'Tap "Test ping" to measure connection speed.',
+testing:'Testing',connecting_port:'Connecting to port {0} …',no_reply:'No response',no_reply_long:"The server didn't respond within 4.5 seconds; it may be offline, filtered or unreachable.",sample_n:'Sample {0} of 3 …',replied:'Server responded · best: {0} · average of {1} samples: {2}',
+native_hint:'Direct connection, speed and data usage only work inside the NOX Android app. ',native_preview:'Preview the look (simulation)',sim_bar:'Simulation · numbers are not real',sim_exit:'Exit',
+st_disconnected:'Disconnected',st_connecting:'Connecting…',st_connected:'Connected',st_error:'Connection error',badge_live:'Connected',badge_connecting:'Connecting',pick_server:'Pick a server from the list',
+down:'↓ Download',up:'↑ Upload',sess:'This session',total:'Total usage',conn_fail:"Couldn't start the connection",
+cn_aria:'Connect to server',cn_scan_h:'Scan with your phone',cn_scan_p:'In your VPN app tap "+" and choose "Scan QR". The QR is generated right here on your device and is never sent anywhere.',cn_toolong:'This link is too long for a QR code; use copy instead.',
+cn_open_h:'Open directly in an app',cn_open_p:'The app must be installed on this device. If nothing opens, use "Copy" below.',cn_hiddify:'Android · iOS · Windows · Mac',
+cn_manual_h:'Copy and import manually',cn_manual_p:'<bdi>v2rayNG</bdi> (Android): tap "+" and choose <bdi>Import config from clipboard</bdi>.<br><bdi>v2rayN</bdi> (Windows): after copying, press <bdi>Ctrl+V</bdi> inside the app.',
+cn_status:'The VPN app establishes the connection itself; this page only hands the config over to it.',
+set_h1:'App Settings',set_p:'Control language, appearance, autosave and backups from here.',set_pill:'NOX Control Center',
+set_look_h:'Language & appearance',set_look_p:'Choose the language, theme and start page. Your choice is saved.',set_lang:'Language',set_theme:'Theme',theme_dark:'Dark',theme_light:'Light',theme_system:'Match system',set_start:'Start page',start_last:'Last opened page',
+lang_changed:'Language changed',theme_changed:'Appearance changed',pref_saved:'Setting saved',
+set_auto_h:'Autosave',set_auto_p:'Whatever you type in a form is saved as a draft instantly. If the page or app closes unexpectedly, everything is still there when you come back.',set_auto_toggle:'Autosave drafts',
+set_auto_note:'Notes, accounts, projects and configs are also written to device storage the moment you add, edit or delete them.',auto_off:'Autosave is off.',auto_last:'Last autosave: {0}',auto_none:'No draft saved yet.',auto_on_toast:'Autosave turned on',auto_off_toast:'Autosave turned off',
+set_backup_h:'Backup & restore',set_backup_p:'Back up your notes, projects, saved Gmail accounts, VPN configs and time data, or restore a previous copy.',export:'⬇ Export data',restore:'⬆ Restore from file',backup_aria:'Backup file',
+backup_status:'The backup is a JSON file. Keep it somewhere safe; your data is stored only in this browser.',backup_ready:'Backup file ready',restore_confirm:'Replace current data with the backup?',restore_ok:'Backup restored successfully',restore_bad:'The backup file is invalid or unreadable',
+set_over_h:'Data overview',set_over_p:'An overview of the data stored on this device.',ov_notes:'Notes',ov_proj:'noxcod projects',ov_gmail:'Gmail accounts',ov_vpn:'VPN configs',ov_days:'Time-tracked days',
+set_manage_h:'Data management',set_manage_p:'Clearing is irreversible. It is best to export a backup first.',clear_notes:'Clear notes',reset_all:'Reset the whole app',clear_confirm:'Delete all notes permanently?',reset_confirm:'Erase all time data, projects, Gmail accounts, notes, VPN configs and settings? This cannot be undone.',reset_done:'App has been reset',
+set_priv_h:'Privacy',set_priv_p:"This version keeps your data in the browser's local storage (localStorage) and does not sync it to any online account. Clearing browser data may delete it. Don't write passwords or recovery codes in notes.",
+persist_yes:'The browser has protected this storage from automatic eviction.',persist_no:'Storage is not protected from automatic eviction; export a backup to be safe.',
+about_p:'A personal tool for organizing time, projects and notes'
+}};
+let lang=(()=>{try{return localStorage.getItem(K_LANG)==='en'?'en':'fa'}catch(e){return 'fa'}})();
+function t(k,...a){let s=I[lang][k];if(s===undefined)s=I.fa[k];if(s===undefined)return k;a.forEach((v,i)=>{s=s.split('{'+i+'}').join(v)});return s}
+const FAD='۰۱۲۳۴۵۶۷۸۹';
+function num(x){let s=String(x);return lang==='fa'?s.replace(/\d/g,d=>FAD[+d]):s}
+const loc=()=>lang==='fa'?'fa-IR':'en-US';
+const timeStr=ts=>new Date(ts).toLocaleTimeString(loc(),{hour:'2-digit',minute:'2-digit'});
+
+/* ---------- storage + state ---------- */
+const $=s=>document.querySelector(s);
+function ls(k,def){try{let v=localStorage.getItem(k);return v===null?def:JSON.parse(v)}catch(e){return def}}
+function put(k,v,msg){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){toast(t(msg||'err_storage'));return false}}
+const isObj=x=>x&&typeof x==='object'&&!Array.isArray(x),arr=x=>Array.isArray(x)?x:[];
+let toastTimer;function toast(s){let el=$('#toast');el.textContent=s;el.classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.add('hidden'),2500)}
+function escapeHtml(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+let prefs=Object.assign({autosave:true,start:'last',lastTab:'settings'},isObj(ls(K_PREFS,{}))?ls(K_PREFS,{}):{});
+const savePrefs=()=>put(K_PREFS,prefs);
+let data=ls(STORE,{});if(!isObj(data))data={};
+let notes=arr(ls(K_NOTES,[])),projects=arr(ls(K_PROJ,[])),gmails=arr(ls(K_GMAIL,[])),noteSearch='';
+let drafts=ls(K_DRAFT,{});if(!isObj(drafts))drafts={};
+let tab=TABS.includes(prefs.start)?prefs.start:(TABS.includes(prefs.lastTab)?prefs.lastTab:'settings');
+const saveNotes=()=>put(K_NOTES,notes,'err_storage_notes');
+const CATS=['شخصی','کار','ایده','یادآوری','برنامه\u200cنویسی','متفرقه'];
+const CAT_EN={'شخصی':'Personal','کار':'Work','ایده':'Idea','یادآوری':'Reminder','برنامه\u200cنویسی':'Coding','متفرقه':'Misc'};
+const catL=c=>lang==='en'&&CAT_EN[c]?CAT_EN[c]:c;
+
+/* ---------- drafts (autosave) ---------- */
+const DRAFT_IDS=['note-title','note-category','note-body','gmail-label','gmail-address','gmail-note','project-name','vpn-link','vpn-name'];
+let draftTimer=null,draftDirty=false;
+const autosaveOn=()=>prefs.autosave!==false;
+function persistDrafts(){try{if(Object.keys(drafts).length)localStorage.setItem(K_DRAFT,JSON.stringify(drafts));else localStorage.removeItem(K_DRAFT);return true}catch(e){return false}}
+function autosaveText(){return !autosaveOn()?t('auto_off'):drafts.__at?t('auto_last',timeStr(drafts.__at)):t('auto_none')}
+function flushDrafts(){clearTimeout(draftTimer);draftTimer=null;if(!draftDirty||!autosaveOn())return;draftDirty=false;drafts.__at=Date.now();if(persistDrafts()){document.querySelectorAll('[data-draft-status]').forEach(el=>{el.textContent=t('draft_saved',timeStr(drafts.__at));el.classList.add('on')});let s=$('#autosave-status');if(s)s.textContent=autosaveText()}}
+function draftSet(id,v){if(!autosaveOn())return;if(v===''&&id!=='note-category')delete drafts[id];else drafts[id]=v;draftDirty=true;clearTimeout(draftTimer);draftTimer=setTimeout(flushDrafts,350)}
+function clearDrafts(ids){ids.forEach(i=>delete drafts[i]);if(ids.includes('note-title'))delete drafts.__edit;if(!Object.keys(drafts).filter(k=>k!=='__at').length)delete drafts.__at;draftDirty=false;persistDrafts()}
+function restoreDrafts(){if(!autosaveOn())return;
+ DRAFT_IDS.forEach(id=>{let el=document.getElementById(id),v=drafts[id];if(!el||v===undefined)return;if(el.tagName==='SELECT'&&![...el.options].some(o=>o.value===v))return;el.value=v});
+ let f=document.getElementById('note-form');if(f&&drafts.__edit){let i=notes.findIndex(n=>n.created===drafts.__edit);if(i>=0)setEditMode(f,i);else delete drafts.__edit}
+ document.querySelectorAll('[data-draft-status]').forEach(el=>{let f=document.getElementById(el.dataset.draftStatus);if(f&&[...f.elements].some(x=>DRAFT_IDS.includes(x.id)&&x.id!=='note-category'&&x.value)){el.textContent=t('draft_restored');el.classList.add('on')}})}
+function setEditMode(f,i){f.dataset.editIndex=i;f.querySelector('button[type=submit]').textContent=t('save_changes')}
+addEventListener('pagehide',flushDrafts);document.addEventListener('visibilitychange',()=>{if(document.hidden)flushDrafts()});
+
+/* ---------- vpn data ---------- */
+const VPN_DEFAULTS=
+[
+{ name:'سرور اول · نامشخص', uri:'vless://23c692d0-9a2d-4b1a-8249-a69631daac0c@0.0.0.0:6001?security=none&type=tcp&headerType=none&path=&host=#%F0%9F%91%A4user%20%3A6921483144_765a%7C%20Day%20%3A%2027%7C%2028.31%20GB', host:'0.0.0.0',port:6001, note:'آدرس 0.0.0.0 آدرس سرور عمومی نیست؛ باید با IP یا دامنه واقعی جایگزین شود.'},
+{ name:'سرور دوم · TLS / WebSocket', uri:'vless://23c692d0-9a2d-4b1a-8249-a69631daac0c@................:8483?security=tls&type=ws&headerType=&path=%2F&host=lamofmc.parsianboton.ir&sni=lamofmc.parsianboton.ir&fp=random&alpn=h3%2Ch2%2Chttp%2F1.1#%D9%82%D8%A8%D9%84%20%D8%A7%D8%B2%20%D8%A7%D8%AA%D8%B5%D8%A7%D9%84%20%D9%84%DB%8C%D9%86%DA%A9%20%D9%87%D8%A7%DB%8C%20%D8%AE%D9%88%D8%AF%20%D8%B1%D8%A7%20%D8%A2%D9%BE%D8%AF%DB%8C%D8%AA%20%DA%A9%D9%86%DB%8C%D8%AF%20%E2%9C%85', host:'................',port:8483,note:'آدرس سرور در لینک با نقطه پوشانده شده و برای تست نیاز به دامنه/IP واقعی دارد.'},
+{ name:'🇩🇪 TUN - Germani', uri:'vless://23c692d0-9a2d-4b1a-8249-a69631daac0c@cdn-tech.novalabscloud.com:8443?security=reality&type=tcp&headerType=&path=&host=www.yahoo.com&sni=activision.com&fp=ios&pbk=q_IQAoC_JRkOcWKVSWHz9aTNVNsCGFHd_rqib6zXOEY&sid=408298ca2df031e7#%F0%9F%87%A9%F0%9F%87%AA%20TUN%20-Germani%20%E2%9A%A1%EF%B8%8F',host:'cdn-tech.novalabscloud.com',port:8443},
+{ name:'🇩🇪 TUN - Germani (API)', uri:'vless://23c692d0-9a2d-4b1a-8249-a69631daac0c@api-tech.novalabscloud.com:2096?security=reality&type=tcp&headerType=&path=&host=www.yahoo.com&sni=activision.com&fp=ios&pbk=q_IQAoC_JRkOcWKVSWHz9aTNVNsCGFHd_rqib6zXOEY&sid=408298ca2df031e7#%F0%9F%87%A9%F0%9F%87%AA%20TUN%20-Germani%20%E2%9A%A1%EF%B8%8F',host:'api-tech.novalabscloud.com',port:2096},
+{ name:'🇦🇿 ALL NET', uri:'vless://23c692d0-9a2d-4b1a-8249-a69631daac0c@app-cdn.cravix.ir:2053?security=reality&type=tcp&headerType=&path=&host=www.yahoo.com&sni=play.google.com&fp=ios&pbk=q_IQAoC_JRkOcWKVSWHz9aTNVNsCGFHd_rqib6zXOEY&sid=408298ca2df031e7#%F0%9F%87%A6%F0%9F%87%BF%20%F0%9D%90%80%F0%9D%90%8B%F0%9D%90%8B%20%F0%9D%90%8D%F0%9D%90%84%F0%9D%90%93%20%E2%9A%A1%EF%B8%8F',host:'app-cdn.cravix.ir',port:2053},
+{ name:'🇫🇮 ALL NET', uri:'vless://23c692d0-9a2d-4b1a-8249-a69631daac0c@cdn-apitech.cravix.ir:2085?security=reality&type=tcp&headerType=&path=&host=www.yahoo.com&sni=play.google.com&fp=ios&pbk=q_IQAoC_JRkOcWKVSWHz9aTNVNsCGFHd_rqib6zXOEY&sid=408298ca2df031e7#%F0%9F%87%AB%F0%9F%87%AE%20%F0%9D%90%80%F0%9D%90%8B%F0%9D%90%8B%20%F0%9D%90%8D%F0%9D%90%84%F0%9D%90%93%20%E2%9A%A1%EF%B8%8F',host:'cdn-apitech.cravix.ir',port:2085}
+];
+
+VPN_DEFAULTS[0].name={fa:VPN_DEFAULTS[0].name,en:'Server 1 · unknown'};
+VPN_DEFAULTS[0].note={fa:VPN_DEFAULTS[0].note,en:'The address 0.0.0.0 is not a public server address; it must be replaced with a real IP or domain.'};
+VPN_DEFAULTS[1].name={fa:VPN_DEFAULTS[1].name,en:'Server 2 · TLS / WebSocket'};
+VPN_DEFAULTS[1].note={fa:VPN_DEFAULTS[1].note,en:'The server address in the link is masked with dots; a real domain/IP is required for testing.'};
+const vn=v=>isObj(v.name)?(v.name[lang]||v.name.fa):String(v.name),vo=v=>isObj(v.note)?(v.note[lang]||v.note.fa):(v.note||'');
+function cleanVpn(a){return arr(a).filter(v=>v&&typeof v.uri==='string'&&typeof v.host==='string'&&Number.isFinite(Number(v.port))&&v.name!==undefined&&v.name!==null).map(v=>{let o={name:v.name,uri:v.uri,host:v.host,port:Number(v.port)};if(v.note)o.note=v.note;return o})}
+let vpnServers;{let s=ls(K_VPN,null);vpnServers=Array.isArray(s)?cleanVpn(s):JSON.parse(JSON.stringify(VPN_DEFAULTS))}
+const saveVpn=()=>put(K_VPN,vpnServers);
+function b64dec(s){s=s.replace(/-/g,'+').replace(/_/g,'/').replace(/\s+/g,'');while(s.length%4)s+='=';let bin=atob(s);try{return decodeURIComponent(bin.split('').map(c=>'%'+c.charCodeAt(0).toString(16).padStart(2,'0')).join(''))}catch(e){return bin}}
+function parseVpn(line,custom){line=String(line).trim();let m=/^([a-z][a-z0-9]*):\/\//i.exec(line);if(!m)return null;let sc=m[1].toLowerCase();if(!['vless','vmess','trojan','ss','hysteria2','hy2'].includes(sc))return null;
+ let host='',port=NaN,name='';
+ try{
+  let body=line.slice(m[0].length);
+  if(sc==='vmess'){let j=JSON.parse(b64dec(body.split('#')[0]));host=String(j.add||'');port=Number(j.port);name=String(j.ps||'')}
+  else{let h=body.indexOf('#'),frag=h>=0?body.slice(h+1):'',main=h>=0?body.slice(0,h):body;
+   try{name=decodeURIComponent(frag)}catch(e){name=frag}
+   let q=main.indexOf('?');if(q>=0)main=main.slice(0,q);
+   if(sc==='ss'&&main.indexOf('@')<0)main=b64dec(main.replace(/\/+$/,''));
+   let at=main.lastIndexOf('@'),hp=(at>=0?main.slice(at+1):main).replace(/\/.*$/,''),mm=/^(\[[^\]]+\]|[^:]+):(\d+)$/.exec(hp);
+   if(!mm)return null;host=mm[1].replace(/^\[|\]$/g,'');port=Number(mm[2])}
+ }catch(e){return null}
+ if(!host||!Number.isInteger(port)||port<1||port>65535)return null;
+ name=(custom||'').trim()||name.trim()||(sc.toUpperCase()+' · '+host);
+ return{name:name.slice(0,120),uri:line,host,port}}
+
+/* ---------- QR code (unchanged) ---------- */
+function qrMatrix(text){
+ const ECC=[[7,10,15,20,26,18,20,24,30,18,20,24,26,30,22,24,28,30,28,28],[10,16,26,18,24,16,18,22,22,26,30,22,22,24,24,28,28,26,26,26]],
+ BLK=[[1,1,1,1,1,2,2,2,2,4,4,4,4,4,6,6,6,6,7,8],[1,1,1,2,2,4,4,4,5,5,5,8,9,9,10,10,11,13,14,16]],FMT=[1,0];
+ let bytes=[...new TextEncoder().encode(text)];
+ let raw=v=>{let r=(16*v+128)*v+64;if(v>=2){let a=Math.floor(v/7)+2;r-=(25*a-10)*a-55;if(v>=7)r-=36}return r};
+ let ver=0,lvl=0;
+ search:for(let v=1;v<=20;v++)for(let l of [1,0]){let dc=Math.floor(raw(v)/8)-ECC[l][v-1]*BLK[l][v-1];if(Math.ceil((4+(v<10?8:16)+8*bytes.length)/8)<=dc){ver=v;lvl=l;break search}}
+ if(!ver)throw new Error('too long');
+ let bits=[],put=(x,n)=>{for(let i=n-1;i>=0;i--)bits.push((x>>>i)&1)};
+ put(4,4);put(bytes.length,ver<10?8:16);bytes.forEach(b=>put(b,8));
+ let dcw=Math.floor(raw(ver)/8)-ECC[lvl][ver-1]*BLK[lvl][ver-1];
+ put(0,Math.min(4,dcw*8-bits.length));while(bits.length%8)bits.push(0);
+ let data=[];for(let i=0;i<bits.length;i+=8){let b=0;for(let j=0;j<8;j++)b=b<<1|bits[i+j];data.push(b)}
+ for(let p=0xEC;data.length<dcw;p^=0xEC^0x11)data.push(p);
+ let mul=(x,y)=>{let z=0;for(let i=7;i>=0;i--){z=(z<<1)^((z>>>7)*0x11D);z^=((y>>>i)&1)*x}return z};
+ let rs=(d,n)=>{let g=new Array(n).fill(0);g[n-1]=1;let root=1;for(let i=0;i<n;i++){for(let j=0;j<n;j++){g[j]=mul(g[j],root);if(j+1<n)g[j]^=g[j+1]}root=mul(root,2)}
+  let r=new Array(n).fill(0);for(let b of d){let f=b^r.shift();r.push(0);for(let i=0;i<n;i++)r[i]^=mul(g[i],f)}return r};
+ let nb=BLK[lvl][ver-1],el=ECC[lvl][ver-1],rc=Math.floor(raw(ver)/8),ns=nb-rc%nb,sl=Math.floor(rc/nb),blocks=[];
+ for(let i=0,k=0;i<nb;i++){let dl=sl-el+(i<ns?0:1),d=data.slice(k,k+dl);k+=dl;let e=rs(d,el);if(i<ns)d.push(0);blocks.push(d.concat(e))}
+ let all=[];for(let i=0;i<blocks[0].length;i++)for(let j=0;j<nb;j++)if(i!=sl-el||j>=ns)all.push(blocks[j][i]);
+ let n=ver*4+17,M=[],F=[];for(let i=0;i<n;i++){M.push(new Array(n).fill(false));F.push(new Array(n).fill(false))}
+ let set=(x,y,d)=>{M[y][x]=d;F[y][x]=true};
+ for(let i=0;i<n;i++){set(6,i,i%2==0);set(i,6,i%2==0)}
+ for(let [cx,cy] of [[3,3],[n-4,3],[3,n-4]])for(let dy=-4;dy<=4;dy++)for(let dx=-4;dx<=4;dx++){let d=Math.max(Math.abs(dx),Math.abs(dy)),x=cx+dx,y=cy+dy;if(x>=0&&x<n&&y>=0&&y<n)set(x,y,d!=2&&d!=4)}
+ let ap=[];if(ver>1){let na=Math.floor(ver/7)+2,st=ver==32?26:Math.ceil((ver*4+4)/(na*2-2))*2;ap=[6];for(let p=n-7;ap.length<na;p-=st)ap.splice(1,0,p)}
+ for(let i=0;i<ap.length;i++)for(let j=0;j<ap.length;j++){if((i==0&&j==0)||(i==0&&j==ap.length-1)||(i==ap.length-1&&j==0))continue;for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)set(ap[i]+dx,ap[j]+dy,Math.max(Math.abs(dx),Math.abs(dy))!=1)}
+ let fmt=m=>{let d=FMT[lvl]<<3|m,r=d;for(let i=0;i<10;i++)r=(r<<1)^((r>>>9)*0x537);let b=((d<<10)|r)^0x5412,g=i=>((b>>>i)&1)!=0;
+  for(let i=0;i<=5;i++)set(8,i,g(i));set(8,7,g(6));set(8,8,g(7));set(7,8,g(8));for(let i=9;i<15;i++)set(14-i,8,g(i));
+  for(let i=0;i<8;i++)set(n-1-i,8,g(i));for(let i=8;i<15;i++)set(8,n-15+i,g(i));set(8,n-8,true)};
+ fmt(0);
+ if(ver>=7){let r=ver;for(let i=0;i<12;i++)r=(r<<1)^((r>>>11)*0x1F25);let b=ver<<12|r;for(let i=0;i<18;i++){let d=((b>>>i)&1)!=0,a=n-11+i%3,c=Math.floor(i/3);set(a,c,d);set(c,a,d)}}
+ for(let i=0,right=n-1;right>=1;right-=2){if(right==6)right=5;for(let v=0;v<n;v++)for(let j=0;j<2;j++){let x=right-j,up=((right+1)&2)==0,y=up?n-1-v:v;if(!F[y][x]&&i<all.length*8){M[y][x]=((all[i>>>3]>>>(7-(i&7)))&1)!=0;i++}}}
+ let mk=[(x,y)=>(x+y)%2==0,(x,y)=>y%2==0,(x,y)=>x%3==0,(x,y)=>(x+y)%3==0,(x,y)=>(Math.floor(x/3)+Math.floor(y/2))%2==0,(x,y)=>x*y%2+x*y%3==0,(x,y)=>(x*y%2+x*y%3)%2==0,(x,y)=>((x+y)%2+x*y%3)%2==0];
+ let apply=m=>{for(let y=0;y<n;y++)for(let x=0;x<n;x++)if(!F[y][x]&&mk[m](x,y))M[y][x]=!M[y][x]};
+ let pen=()=>{let p=0;for(let a=0;a<n;a++)for(let dir=0;dir<2;dir++){let run=1,prev=null;for(let b=0;b<n;b++){let c=dir?M[b][a]:M[a][b];if(c===prev){run++;if(run==5)p+=3;else if(run>5)p++}else{run=1;prev=c}}}
+  for(let y=0;y<n-1;y++)for(let x=0;x<n-1;x++){let c=M[y][x];if(c===M[y][x+1]&&c===M[y+1][x]&&c===M[y+1][x+1])p+=3}return p};
+ let best=0,bp=1e9;for(let m=0;m<8;m++){apply(m);fmt(m);let p=pen();if(p<bp){bp=p;best=m}apply(m)}
+ apply(best);fmt(best);return M}
+function qrSvg(text){let m=qrMatrix(text),n=m.length,b=4,d='';for(let y=0;y<n;y++)for(let x=0;x<n;x++)if(m[y][x])d+='M'+(x+b)+' '+(y+b)+'h1v1h-1z';return '<svg viewBox="0 0 '+(n+2*b)+' '+(n+2*b)+'" shape-rendering="crispEdges" role="img" aria-label="QR"><rect width="100%" height="100%" fill="#fff"/><path d="'+d+'" fill="#000"/></svg>'}
+
+/* ---------- live connection (native app bridge or simulator) ---------- */
+let vpnLive={state:'disconnected',name:'',uri:'',down:0,up:0,sRx:0,sTx:0,tRx:0,tTx:0},vpnHist=[],vpnSimOn=false,vpnSimT=null,vpnSimTot={rx:0,tx:0};
+const vpnSim={connect(uri,name){vpnSimStop();vpnUpdate({state:'connecting',uri,name,down:0,up:0,sRx:0,sTx:0,tRx:vpnSimTot.rx,tTx:vpnSimTot.tx});let rx=0,tx=0;vpnSimT=setTimeout(()=>{vpnSimT=setInterval(()=>{let d=Math.round(8e4+Math.random()*2.2e6),u=Math.round(1e4+Math.random()*3e5);rx+=d;tx+=u;vpnSimTot.rx+=d;vpnSimTot.tx+=u;vpnUpdate({state:'connected',uri,name,down:d,up:u,sRx:rx,sTx:tx,tRx:vpnSimTot.rx,tTx:vpnSimTot.tx})},1000)},900)},disconnect(){vpnSimStop();vpnUpdate({state:'disconnected',down:0,up:0})}};
+function vpnSimStop(){clearTimeout(vpnSimT);clearInterval(vpnSimT);vpnSimT=null}
+function vpnBridge(){return window.NoxVPN||(vpnSimOn?vpnSim:null)}
+function vpnFmt(n,rate){n=Number(n)||0;let u=['B','KB','MB','GB','TB'],i=0;while(n>=1024&&i<4){n/=1024;i++}let s=i<2?String(Math.round(n)):n.toFixed(n>=100?0:n>=10?1:2);return '\u2066'+num(s)+' '+u[i]+(rate?'/s':'')+'\u2069'}
+function vpnUpdate(o){let prev=vpnLive.state;vpnLive=Object.assign({},vpnLive,o);if(vpnLive.state!=='connected'){vpnLive.down=0;vpnLive.up=0}if(vpnLive.state!==prev&&vpnLive.state!=='connected')vpnHist=[];if(vpnLive.state==='connected'){vpnHist.push(vpnLive.down+vpnLive.up);if(vpnHist.length>40)vpnHist.shift()}vpnApply();if(o&&o.state==='error'&&o.error)toast(o.error)}
+function vpnApply(){let L=vpnLive,q=s=>document.querySelector(s),names={disconnected:t('st_disconnected'),connecting:t('st_connecting'),connected:t('st_connected'),error:t('st_error')},st=q('#vc-state');
+if(st){st.textContent=names[L.state]||names.disconnected;q('#vc-dot').className='vc-dot '+L.state;q('#vc-server').textContent=L.state==='disconnected'?t('pick_server'):(L.name||'');q('#vc-btn').classList.toggle('hidden',L.state==='disconnected');q('#vc-down').textContent=vpnFmt(L.down,1);q('#vc-up').textContent=vpnFmt(L.up,1);q('#vc-sess').textContent=vpnFmt((L.sRx||0)+(L.sTx||0));q('#vc-total').textContent=vpnFmt((L.tRx||0)+(L.tTx||0));
+ let mx=Math.max(1,...vpnHist),pts=vpnHist.map((v,i)=>(vpnHist.length>1?i*120/(vpnHist.length-1):0).toFixed(1)+','+(34-v/mx*30).toFixed(1)).join(' ');q('#vc-line').setAttribute('points',pts)}
+document.querySelectorAll('[data-vpn-card]').forEach(c=>{let v=vpnServers[Number(c.dataset.vpnCard)],mine=v&&L.uri===v.uri&&L.state!=='disconnected'&&L.state!=='error',b=c.querySelector('[data-connect-vpn]');c.classList.toggle('live',mine&&L.state==='connected');c.classList.toggle('connecting',mine&&L.state==='connecting');if(b&&vpnBridge()){b.textContent=mine?t('disconnect'):t('connect');b.classList.toggle('stop',!!mine)}})}
+window.noxVpnUpdate=s=>{try{vpnUpdate(typeof s==='string'?JSON.parse(s):s)}catch(e){}};
+try{if(window.NoxVPN&&window.NoxVPN.state)vpnUpdate(JSON.parse(window.NoxVPN.state()))}catch(e){}
+
+/* ---------- pages ---------- */
+const hero=(cls,kick,h,p,pill)=>`<section class="${cls}"><div class="project-kicker">${kick}</div><h1>${h}</h1><p>${p}</p><div class="project-count">${pill}</div></section>`;
+const draftBox=id=>`<div class="draft-status" data-draft-status="${id}" role="status" aria-live="polite"></div>`;
+
+function notesPage(){let q=noteSearch.toLocaleLowerCase().trim(),items=notes.map((n,i)=>({...n,_i:i})).filter(n=>!q||((n.title||'')+' '+(n.body||'')+' '+(n.category||'')).toLocaleLowerCase().includes(q)).sort((a,b)=>Number(!!b.pinned)-Number(!!a.pinned)||(b.updated||b.created||0)-(a.updated||a.created||0));
+return hero('notes-hero','NOX / PERSONAL KNOWLEDGE',t('notes_h1'),t('notes_p'),t('notes_count',num(notes.length)))
++`<form class="note-form" id="note-form"><input id="note-title" maxlength="120" placeholder="${t('note_title_ph')}" aria-label="${t('note_title_ph')}" required><select id="note-category" aria-label="${t('note_cat')}">${CATS.map(c=>`<option value="${c}">${catL(c)}</option>`).join('')}</select><textarea id="note-body" maxlength="10000" placeholder="${t('note_body_ph')}" aria-label="${t('note_body_aria')}"></textarea><button class="add-project" type="submit">${t('note_save')}</button></form>${draftBox('note-form')}`
++`<div class="note-tools"><input id="note-search" placeholder="${t('note_search_ph')}" value="${escapeHtml(noteSearch)}" aria-label="${t('note_search_aria')}"></div><div class="section-heading"><span>${t('notes_mine')}</span><small>${t('n_items',num(items.length))}</small></div>`
++(items.length?`<div class="note-list">${items.map(n=>`<article class="note-card ${n.pinned?'pinned':''}"><div class="note-card-top"><div class="note-card-title">${n.pinned?'📌 ':''}${escapeHtml(n.title)}</div><span class="note-category">${escapeHtml(catL(n.category||'متفرقه'))}</span></div><div class="note-body">${escapeHtml(n.body||t('no_text'))}</div><div class="note-meta">${n.updated?t('edited'):t('created')} · ${new Date(n.updated||n.created||Date.now()).toLocaleString(loc())}</div><div class="note-actions"><button data-pin-note="${n._i}">${n.pinned?t('unpin'):t('pin')}</button><button data-edit-note="${n._i}">${t('edit')}</button><button class="danger" data-delete-note="${n._i}">${t('delete')}</button></div></article>`).join('')}</div>`:`<div class="note-empty">${notes.length?t('note_none_found'):t('note_none')}</div>`)}
+
+function gmailPage(){let list=gmails.length?'<div class="project-list">'+gmails.map((g,i)=>`<div class="gmail-item"><div class="gmail-symbol">✉</div><div class="gmail-info"><div class="gmail-label">${escapeHtml(g.label)}</div><div class="gmail-address">${escapeHtml(g.address)}</div>${g.note?'<div class="gmail-note">'+escapeHtml(g.note)+'</div>':''}</div><button class="delete-project" type="button" data-delete-gmail="${i}" aria-label="${t('gmail_del_aria')}" title="${t('delete')}">×</button></div>`).join('')+'</div>':`<div class="gmail-empty"><span style="font-size:30px">✉️</span><br>${t('gmail_empty')}</div>`;
+return hero('gmail-hero','NOX / ACCOUNT NOTES',t('gmail_h1'),t('gmail_p'),t('gmail_count',num(gmails.length)))
++`<div class="gmail-warning">${t('gmail_warn')}</div><form class="gmail-form" id="gmail-form"><input id="gmail-label" maxlength="80" autocomplete="off" placeholder="${t('gmail_label_ph')}" aria-label="${t('gmail_label_aria')}" required><input id="gmail-address" type="email" maxlength="254" autocomplete="off" placeholder="${t('gmail_addr_ph')}" aria-label="${t('gmail_addr_aria')}" required><input id="gmail-note" maxlength="240" autocomplete="off" placeholder="${t('gmail_note_ph')}" aria-label="${t('gmail_note_aria')}"><button class="add-project" type="submit">${t('gmail_add')}</button></form>${draftBox('gmail-form')}`
++`<div class="section-heading"><span>${t('gmail_saved_h')}</span><small>${gmails.length?t('gmail_yours'):t('gmail_no_yet')}</small></div>`+list}
+
+function noxcodPage(){return hero('project-hero','NOXCOD / WORKSPACE',t('proj_h1'),t('proj_p'),t('proj_count',num(projects.length)))
++`<form class="project-form" id="project-form"><input id="project-name" maxlength="100" autocomplete="off" placeholder="${t('proj_ph')}" aria-label="${t('proj_aria')}" required><button class="add-project" type="submit">${t('proj_add')}</button></form>${draftBox('project-form')}`
++`<div class="section-heading"><span>${t('proj_list_h')}</span><small>${projects.length?t('proj_yours'):t('proj_start')}</small></div>`
++(projects.length?`<div class="project-list">${projects.map((name,i)=>`<div class="project-item"><div class="project-symbol">⌘</div><div class="project-name">${escapeHtml(name)}<span class="project-number">${t('proj_n',num(i+1))}</span></div><button class="delete-project" type="button" data-delete-project="${i}" aria-label="${t('proj_del_aria')}" title="${t('proj_del_aria')}">×</button></div>`).join('')}</div>`:`<div class="project-empty"><span>⌘</span>${t('proj_empty')}</div>`)}
+
+function vpnPanel(){if(!vpnBridge())return `<div class="vpn-native-hint">${t('native_hint')}<button type="button" id="vpn-sim-on">${t('native_preview')}</button></div>`;
+return '<section class="vpn-conn" id="vpn-conn">'+(window.NoxVPN?'':`<div class="vc-sim"><span>${t('sim_bar')}</span><button type="button" id="vpn-sim-off">${t('sim_exit')}</button></div>`)+`<div class="vc-top"><span class="vc-dot disconnected" id="vc-dot"></span><div class="vc-info"><div class="vc-state" id="vc-state">${t('st_disconnected')}</div><div class="vc-server" id="vc-server"></div></div><button type="button" class="vc-btn hidden" id="vc-btn">${t('disconnect')}</button></div><svg class="vc-spark" viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><polyline id="vc-line" fill="none" vector-effect="non-scaling-stroke" points=""/></svg><div class="vc-grid"><div><small>${t('down')}</small><b id="vc-down"></b></div><div><small>${t('up')}</small><b id="vc-up"></b></div><div><small>${t('sess')}</small><b id="vc-sess"></b></div><div><small>${t('total')}</small><b id="vc-total"></b></div></div></section>`}
+function vpnTestable(v){return v.host.includes('.')&&v.host!=='0.0.0.0'&&!v.host.includes('...')}
+function serverCard(v,i){let ok=vpnTestable(v),nt=vo(v);return `<article class="server-card" data-vpn-card="${i}"><div class="server-top"><div class="server-icon">🔐</div><div class="server-meta"><div class="server-name">${escapeHtml(vn(v))}</div><div class="server-host">${escapeHtml(v.host)} : ${v.port}</div></div><span class="server-status" id="vpn-status-${i}">${t('ready')}</span></div>${nt?`<div class="server-result">${escapeHtml(nt)}</div>`:''}<div class="server-actions"><button class="primary" data-connect-vpn="${i}" ${ok?'':'disabled'}>${t('connect')}</button><button data-copy-vpn="${i}">${t('copy_link')}</button><button data-test-vpn="${i}" ${ok?'':'disabled'}>${t('test_ping')}</button><button class="danger" data-delete-vpn="${i}" aria-label="${t('delete')}">${t('delete')}</button></div><div class="server-result" id="vpn-result-${i}">${t('test_hint')}</div></article>`}
+function vpnPage(){return hero('vpn-hero','NOX / VPN CENTER',t('vpn_h1'),t('vpn_p'),t('vpn_count',num(vpnServers.length)))+vpnPanel()
++`<div class="section-heading"><span>${t('vpn_add_h')}</span><small>${t('vpn_add_s')}</small></div><form class="vpn-form" id="vpn-form"><textarea id="vpn-link" dir="auto" rows="3" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="${t('vpn_link_ph')}" aria-label="${t('vpn_link_aria')}" required></textarea><input id="vpn-name" maxlength="80" autocomplete="off" placeholder="${t('vpn_name_ph')}" aria-label="${t('vpn_name_aria')}"><div class="vpn-form-actions"><button class="add-project" type="submit">${t('vpn_add_btn')}</button><button class="btn-ghost" type="button" id="vpn-paste">${t('vpn_paste')}</button></div></form>${draftBox('vpn-form')}`
++`<div class="vpn-note">${t('vpn_note')}</div>`+(vpnServers.length?`<button class="vpn-all" id="test-all-vpn" type="button">${t('vpn_test_all')}</button>`:'')
++`<div class="section-heading"><span>${t('vpn_list_h')}</span><small>${t('vpn_list_s',num(vpnServers.length))}</small></div>`
++(vpnServers.length?`<div class="server-list">${vpnServers.map(serverCard).join('')}</div>`:`<div class="gmail-empty"><span style="font-size:30px">🔑</span><br>${t('vpn_empty')}</div>`)}
+
+function settingsPage(){const o=(v,l)=>`<option value="${v}">${l}</option>`,row=(l,ctl)=>`<div class="settings-row"><span>${l}</span>${ctl}</div>`;
+return hero('settings-hero','NOX / CONTROL CENTER',t('set_h1'),t('set_p'),'⚙️ '+t('set_pill'))+`<div class="settings-grid">
+<section class="settings-card"><h3>🌐 ${t('set_look_h')}</h3><p>${t('set_look_p')}</p>
+${row(t('set_lang'),`<select id="lang-select" aria-label="${t('set_lang')}">${o('fa','فارسی')}${o('en','English')}</select>`)}
+${row(t('set_theme'),`<select id="theme-select" aria-label="${t('set_theme')}">${o('dark',t('theme_dark'))}${o('light',t('theme_light'))}${o('system',t('theme_system'))}</select>`)}
+${row(t('set_start'),`<select id="start-select" aria-label="${t('set_start')}">${o('last',t('start_last'))}${TABS.map(k=>o(k,t('nav_'+k))).join('')}</select>`)}</section>
+<section class="settings-card"><h3>⚡ ${t('set_auto_h')}</h3><p>${t('set_auto_p')}</p>
+${row(t('set_auto_toggle'),`<input type="checkbox" class="switch" id="autosave-toggle" role="switch" aria-label="${t('set_auto_toggle')}">`)}
+<div class="settings-status" id="autosave-status">${autosaveText()}</div><div class="settings-status">${t('set_auto_note')}</div></section>
+<section class="settings-card"><h3>📦 ${t('set_backup_h')}</h3><p>${t('set_backup_p')}</p><div class="settings-actions"><button id="export-data">${t('export')}</button><button id="import-trigger">${t('restore')}</button></div><input id="import-file" type="file" accept="application/json,.json" class="hidden" aria-label="${t('backup_aria')}"><div class="settings-status">${t('backup_status')}</div></section>
+<section class="settings-card"><h3>📊 ${t('set_over_h')}</h3><p>${t('set_over_p')}</p>
+<div class="simple-row"><span>${t('ov_notes')}</span><strong>${num(notes.length)}</strong></div><div class="simple-row"><span>${t('ov_proj')}</span><strong>${num(projects.length)}</strong></div><div class="simple-row"><span>${t('ov_gmail')}</span><strong>${num(gmails.length)}</strong></div><div class="simple-row"><span>${t('ov_vpn')}</span><strong>${num(vpnServers.length)}</strong></div><div class="simple-row"><span>${t('ov_days')}</span><strong>${num(Object.keys(data).length)}</strong></div></section>
+<section class="settings-card"><h3>🧹 ${t('set_manage_h')}</h3><p>${t('set_manage_p')}</p><div class="settings-actions"><button class="danger" id="clear-notes">${t('clear_notes')}</button><button class="danger" id="reset-all">${t('reset_all')}</button></div></section>
+<section class="settings-card"><h3>🔒 ${t('set_priv_h')}</h3><p>${t('set_priv_p')}</p><div class="settings-status" id="persist-status"></div></section>
+<section class="settings-card about-card"><svg class="logo-lg" aria-hidden="true"><use href="#nox-logo"/></svg><div><h3>NOX</h3><p>${t('about_p')}</p></div></section></div>`}
+function settingsInit(){let q=s=>$(s);q('#lang-select').value=lang;q('#theme-select').value=themePref;q('#start-select').value=TABS.includes(prefs.start)?prefs.start:'last';q('#autosave-toggle').checked=autosaveOn();
+ try{if(navigator.storage&&navigator.storage.persisted)navigator.storage.persisted().then(p=>{let el=q('#persist-status');if(el)el.textContent=p?t('persist_yes'):t('persist_no')})}catch(e){}}
+
+/* ---------- vpn: test / connect / add ---------- */
+async function vpnProbe(v,timeout){let c=new AbortController(),tm=setTimeout(()=>c.abort(),timeout),s=performance.now();try{await fetch('https://'+v.host+':'+v.port+'/',{mode:'no-cors',cache:'no-store',credentials:'omit',signal:c.signal});return{ms:Math.round(performance.now()-s),timeout:false}}catch(e){return{ms:Math.round(performance.now()-s),timeout:c.signal.aborted}}finally{clearTimeout(tm)}}
+async function testVpn(i){let v=vpnServers[i],status=$('#vpn-status-'+i),result=$('#vpn-result-'+i),btn=document.querySelector(`[data-test-vpn="${i}"]`);if(!v||!btn||!status||!result)return;btn.disabled=true;status.className='server-status';status.textContent=t('testing');result.textContent=t('connecting_port',num(v.port));
+ let first=await vpnProbe(v,4500);if(first.timeout){status.className='server-status bad';status.textContent=t('no_reply');result.textContent=t('no_reply_long');btn.disabled=false;return}
+ let ms=[first.ms];for(let n=0;n<2;n++){result.textContent=t('sample_n',num(n+2));let r=await vpnProbe(v,4500);if(!r.timeout)ms.push(r.ms)}
+ let best=Math.min(...ms),avg=Math.round(ms.reduce((a,b)=>a+b,0)/ms.length);status.className='server-status '+(best<400?'ok':'warn');let L=x=>'\u2066'+num(x)+' ms\u2069';status.textContent=L(best);result.textContent=t('replied',L(best),num(ms.length),L(avg));btn.disabled=false}
+async function testAllVpn(){let b=$('#test-all-vpn');if(!b||b.disabled)return;b.disabled=true;b.textContent=t('vpn_testing_all');for(let i=0;i<vpnServers.length;i++){if(vpnTestable(vpnServers[i]))await testVpn(i)}b.disabled=false;b.textContent=t('vpn_test_again')}
+function vpnToggle(i){let v=vpnServers[i],b=vpnBridge();if(!v)return;if(!b){connectVpn(i);return}try{if(vpnLive.uri===v.uri&&(vpnLive.state==='connected'||vpnLive.state==='connecting'))b.disconnect();else b.connect(v.uri,vn(v))}catch(e){toast(t('conn_fail'))}}
+function copyText(txt){if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>toast(t('link_copied'))).catch(()=>prompt(t('copy_prompt'),txt));else prompt(t('copy_prompt'),txt)}
+function connectVpn(i){let v=vpnServers[i];if(!v||!vpnTestable(v))return;let root=$('#modal-root'),qr='';try{qr=qrSvg(v.uri)}catch(e){qr=''}let u=escapeHtml(v.uri);
+root.innerHTML=`<div class="overlay" id="overlay"><section class="dialog connect-dialog" role="dialog" aria-modal="true" aria-label="${t('cn_aria')}"><h2>${escapeHtml(vn(v))}</h2><div class="cn-host">${escapeHtml(v.host)} : ${v.port}</div>
+<div class="cn-sec"><h3>${t('cn_scan_h')}</h3><p>${t('cn_scan_p')}</p>${qr?`<div class="cn-qr">${qr}</div>`:`<div class="cn-fail">${t('cn_toolong')}</div>`}</div>
+<div class="cn-sec"><h3>${t('cn_open_h')}</h3><p>${t('cn_open_p')}</p><div class="cn-apps"><a class="cn-app" href="hiddify://import/${u}">Hiddify <small>${t('cn_hiddify')}</small></a><a class="cn-app" href="streisand://import/${u}">Streisand <small>iOS</small></a><a class="cn-app" href="shadowrocket://add/${u}">Shadowrocket <small>iOS</small></a></div></div>
+<div class="cn-sec"><h3>${t('cn_manual_h')}</h3><p>${t('cn_manual_p')}</p><button class="add-project cn-copy" id="cn-copy" type="button">${t('copy_link')}</button></div>
+<div class="settings-status">${t('cn_status')}</div>
+<div class="actions"><button class="cancel" id="cn-close" type="button">${t('close')}</button></div></section></div>`;
+let close=()=>{root.innerHTML='';document.removeEventListener('keydown',esc)},esc=e=>{if(e.key==='Escape')close()};document.addEventListener('keydown',esc);
+$('#cn-close').onclick=close;$('#overlay').onclick=e=>{if(e.target.id==='overlay')close()};$('#cn-copy').onclick=()=>copyText(v.uri);$('#cn-close').focus({preventScroll:true})}
+function addVpn(text,custom){let lines=String(text).split(/\r?\n/).map(s=>s.trim()).filter(Boolean),r={added:0,dup:0,bad:0};
+ lines.forEach(l=>{let v=parseVpn(l,lines.length===1?custom:'');if(!v){r.bad++;return}if(vpnServers.some(x=>x.uri===v.uri)){r.dup++;return}vpnServers.push(v);r.added++});return r}
+
+/* ---------- backup ---------- */
+function exportData(){let payload={app:'NOX',version:2,exportedAt:new Date().toISOString(),data,projects,gmails,notes,vpn:vpnServers};if(window.NoxVPN&&window.NoxVPN.saveFile){window.NoxVPN.saveFile('NOX-backup-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(payload,null,2));toast(t('backup_ready'));return}let blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='NOX-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast(t('backup_ready'))}
+function importData(file){if(!file)return;let reader=new FileReader();reader.onload=()=>{try{let x=JSON.parse(reader.result);if(!isObj(x)||!isObj(x.data)||!Array.isArray(x.projects)||!Array.isArray(x.gmails)||!Array.isArray(x.notes))throw new Error('bad');if(!confirm(t('restore_confirm')))return;
+ data=x.data;projects=x.projects;gmails=x.gmails;notes=x.notes;if(Array.isArray(x.vpn))vpnServers=cleanVpn(x.vpn);
+ localStorage.setItem(STORE,JSON.stringify(data));localStorage.setItem(K_PROJ,JSON.stringify(projects));localStorage.setItem(K_GMAIL,JSON.stringify(gmails));localStorage.setItem(K_NOTES,JSON.stringify(notes));if(Array.isArray(x.vpn))localStorage.setItem(K_VPN,JSON.stringify(vpnServers));render();toast(t('restore_ok'))}catch(e){toast(t('restore_bad'))}};reader.readAsText(file)}
+
+/* ---------- theme + language ---------- */
+let themePref='dark';
+function applyTheme(pref){if(!['dark','light','system'].includes(pref))pref='dark';themePref=pref;let light=pref==='light'||(pref==='system'&&!!window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches);document.body.classList.toggle('light-theme',light);try{localStorage.setItem(K_THEME,pref)}catch(e){}let m=document.querySelector('meta[name=theme-color]');if(m)m.content=light?'#f3f5fa':'#0c0e16'}
+try{matchMedia('(prefers-color-scheme: light)').addEventListener('change',()=>{if(themePref==='system')applyTheme('system')})}catch(e){}
+function applyLang(){let d=document.documentElement;d.lang=lang;d.dir=lang==='fa'?'rtl':'ltr';document.title=t('title');
+ document.querySelectorAll('nav button').forEach(b=>{b.querySelector('span').textContent=t('nav_'+b.dataset.tab)});$('nav').setAttribute('aria-label',t('nav_aria'));
+ d.style.setProperty('--lbl-live',JSON.stringify(' · '+t('badge_live')));d.style.setProperty('--lbl-connecting',JSON.stringify(' · '+t('badge_connecting')))}
+
+/* ---------- render ---------- */
+function pageHtml(){return tab==='settings'?settingsPage():tab==='notes'?notesPage():tab==='gmail'?gmailPage():tab==='noxcod'?noxcodPage():vpnPage()}
+function afterRender(){restoreDrafts();if(tab==='vpn')vpnApply();if(tab==='settings')settingsInit()}
+function render(){$('#app').innerHTML=pageHtml();afterRender();document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab))}
+
+/* ---------- events ---------- */
+$('nav').onclick=e=>{let b=e.target.closest('[data-tab]');if(b){tab=b.dataset.tab;prefs.lastTab=tab;savePrefs();render()}};
+const app=$('#app');
+app.oninput=e=>{let T=e.target;if(T.id==='note-search'){let pos=T.selectionStart;noteSearch=T.value;app.innerHTML=notesPage();afterRender();let n=$('#note-search');n.focus();n.setSelectionRange(pos,pos);return}if(DRAFT_IDS.includes(T.id))draftSet(T.id,T.value)};
+app.onchange=e=>{let T=e.target,v=T.value;
+ if(DRAFT_IDS.includes(T.id))draftSet(T.id,v);
+ if(T.id==='lang-select'){lang=v==='en'?'en':'fa';try{localStorage.setItem(K_LANG,lang)}catch(er){}applyLang();render();toast(t('lang_changed'));return}
+ if(T.id==='theme-select'){applyTheme(v);toast(t('theme_changed'));return}
+ if(T.id==='start-select'){prefs.start=v;savePrefs();toast(t('pref_saved'));return}
+ if(T.id==='autosave-toggle'){prefs.autosave=T.checked;savePrefs();if(!T.checked){clearTimeout(draftTimer);drafts={};draftDirty=false;persistDrafts()}let s=$('#autosave-status');if(s)s.textContent=autosaveText();toast(t(T.checked?'auto_on_toast':'auto_off_toast'));return}
+ if(T.id==='import-file'){importData(T.files&&T.files[0]);T.value=''}};
+app.onclick=e=>{const T=e.target,c=s=>T.closest(s);let el;
+ if(el=c('[data-pin-note]')){let i=Number(el.dataset.pinNote);if(notes[i]){notes[i].pinned=!notes[i].pinned;notes[i].updated=Date.now();saveNotes();render()}return}
+ if(el=c('[data-delete-note]')){let i=Number(el.dataset.deleteNote);if(notes[i]&&confirm(t('note_del_confirm'))){notes.splice(i,1);saveNotes();render();toast(t('note_deleted'))}return}
+ if(el=c('[data-edit-note]')){let i=Number(el.dataset.editNote),n=notes[i];if(n){$('#note-title').value=n.title;$('#note-body').value=n.body||'';$('#note-category').value=n.category||'متفرقه';setEditMode($('#note-form'),i);
+   draftSet('note-title',n.title);draftSet('note-body',n.body||'');draftSet('note-category',n.category||'متفرقه');if(autosaveOn()&&n.created)drafts.__edit=n.created;
+   $('#note-title').focus();window.scrollTo({top:0,behavior:'smooth'})}return}
+ if(T.id==='export-data'){exportData();return}
+ if(T.id==='import-trigger'){$('#import-file').click();return}
+ if(T.id==='clear-notes'){if(confirm(t('clear_confirm'))){notes=[];saveNotes();render();toast(t('notes_cleared'))}return}
+ if(T.id==='reset-all'){if(confirm(t('reset_confirm'))){[STORE,K_PROJ,K_GMAIL,K_NOTES,K_VPN,K_DRAFT,K_PREFS,K_THEME].forEach(k=>localStorage.removeItem(k));data={};projects=[];gmails=[];notes=[];drafts={};draftDirty=false;prefs={autosave:true,start:'last',lastTab:tab};vpnServers=JSON.parse(JSON.stringify(VPN_DEFAULTS));applyTheme('dark');render();toast(t('reset_done'))}return}
+ if(el=c('[data-copy-vpn]')){let v=vpnServers[Number(el.dataset.copyVpn)];if(v)copyText(v.uri);return}
+ if(el=c('[data-connect-vpn]')){vpnToggle(Number(el.dataset.connectVpn));return}
+ if(el=c('[data-delete-vpn]')){let i=Number(el.dataset.deleteVpn),v=vpnServers[i];if(!v)return;if(!confirm(t('vpn_del_confirm',vn(v))))return;let b=vpnBridge();if(b&&vpnLive.uri===v.uri&&vpnLive.state!=='disconnected'){try{b.disconnect()}catch(er){}}vpnServers.splice(i,1);saveVpn();render();toast(t('vpn_deleted'));return}
+ if(c('#vc-btn')){let b=vpnBridge();if(b)b.disconnect();return}
+ if(c('#vpn-sim-on')){vpnSimOn=true;render();return}
+ if(c('#vpn-sim-off')){vpnSimStop();vpnSimOn=false;vpnLive={state:'disconnected',name:'',uri:'',down:0,up:0,sRx:0,sTx:0,tRx:0,tTx:0};vpnHist=[];render();return}
+ if(c('#vpn-paste')){if(navigator.clipboard&&navigator.clipboard.readText)navigator.clipboard.readText().then(x=>{let ta=$('#vpn-link');if(ta){ta.value=x;draftSet('vpn-link',x);ta.focus()}}).catch(()=>toast(t('vpn_paste_fail')));else toast(t('vpn_paste_fail'));return}
+ if(c('#test-all-vpn')){testAllVpn();return}
+ if(el=c('[data-test-vpn]')){testVpn(Number(el.dataset.testVpn));return}
+ if(el=c('[data-delete-gmail]')){let i=Number(el.dataset.deleteGmail);if(Number.isInteger(i)&&i>=0&&i<gmails.length&&confirm(t('gmail_del_confirm'))){gmails.splice(i,1);put(K_GMAIL,gmails);render();toast(t('gmail_removed'))}return}
+ if(el=c('[data-delete-project]')){let i=Number(el.dataset.deleteProject);if(Number.isInteger(i)&&i>=0&&i<projects.length){let name=projects[i];if(confirm(t('proj_del_confirm',name))){projects.splice(i,1);put(K_PROJ,projects);render();toast(t('proj_deleted'))}}}};
+app.onsubmit=e=>{let f=e.target;
+ if(f.id==='note-form'){e.preventDefault();let title=$('#note-title').value.trim(),body=$('#note-body').value.trim(),category=$('#note-category').value,idx=f.dataset.editIndex;if(!title){toast(t('note_need_title'));return}
+  if(idx!==undefined&&notes[Number(idx)]){let old=notes[Number(idx)];notes[Number(idx)]={...old,title,body,category,updated:Date.now()};toast(t('note_updated'))}else{notes.unshift({title,body,category,pinned:false,created:Date.now()});toast(t('note_saved'))}
+  saveNotes();noteSearch='';clearDrafts(['note-title','note-category','note-body']);render();return}
+ if(f.id==='project-form'){e.preventDefault();let input=$('#project-name'),name=input.value.trim();if(!name){input.focus();return}if(projects.some(x=>x.toLocaleLowerCase()===name.toLocaleLowerCase())){toast(t('proj_dup'));input.focus();return}projects.push(name);put(K_PROJ,projects);clearDrafts(['project-name']);render();toast(t('proj_added'));return}
+ if(f.id==='gmail-form'){e.preventDefault();let label=$('#gmail-label'),address=$('#gmail-address'),note=$('#gmail-note'),entry={label:label.value.trim(),address:address.value.trim(),note:note.value.trim()};if(!entry.label||!entry.address){toast(t('gmail_need'));return}if(gmails.some(g=>g.address.toLowerCase()===entry.address.toLowerCase())){toast(t('gmail_dup'));address.focus();return}gmails.push(entry);put(K_GMAIL,gmails);clearDrafts(['gmail-label','gmail-address','gmail-note']);render();toast(t('gmail_added'));return}
+ if(f.id==='vpn-form'){e.preventDefault();let r=addVpn($('#vpn-link').value,$('#vpn-name').value);if(!r.added){toast(r.dup&&!r.bad?t('vpn_all_dup'):t('vpn_none'));return}saveVpn();clearDrafts(['vpn-link','vpn-name']);render();toast([t('vpn_added',num(r.added)),r.dup?t('vpn_dup_n',num(r.dup)):'',r.bad?t('vpn_bad_n',num(r.bad)):''].filter(Boolean).join(' · '))}};
+
+/* ---------- start ---------- */
+try{applyTheme(localStorage.getItem(K_THEME)||'dark')}catch(e){applyTheme('dark')}
+applyLang();render();
+try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+})();
+</script></body></html>
