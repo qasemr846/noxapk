@@ -45,12 +45,22 @@ jobs:
       - name: Verify JNI signatures match TProxyService.java
         run: |
           SO="$GITHUB_WORKSPACE/app/src/main/jniLibs/arm64-v8a/libhev-socks5-tunnel.so"
-          SIGS=$(strings -a "$SO")
+          F="$GITHUB_WORKSPACE/app/src/main/java/hev/htproxy/TProxyService.java"
+          # -n 3: "()V" is only 3 characters long, the default minimum (4) would hide it
+          SIGS=$(strings -a -n 3 "$SO")
           echo "Signatures found in the library:"
           grep -E '^\(.*\)(V|Z|I|J|\[J)$' <<< "$SIGS" | sort -u || true
           grep -qxF '(Ljava/lang/String;I)Z' <<< "$SIGS" || { echo "::error::TProxyStartService signature changed - update TProxyService.java"; exit 1; }
-          grep -qxF '()V' <<< "$SIGS" || { echo "::error::TProxyStopService signature changed - update TProxyService.java"; exit 1; }
           grep -qxF '()[J' <<< "$SIGS" || { echo "::error::TProxyGetStats signature changed - update TProxyService.java"; exit 1; }
+          if grep -qxF '()V' <<< "$SIGS"; then
+            echo "TProxyStopService returns void - OK"
+          elif grep -qxF '()Z' <<< "$SIGS"; then
+            echo "TProxyStopService returns boolean - patching TProxyService.java"
+            sed -i 's/public static native void TProxyStopService()/public static native boolean TProxyStopService()/' "$F"
+            grep -n "TProxyStopService" "$F"
+          else
+            echo "::error::TProxyStopService signature unknown - see the list above"; exit 1
+          fi
 
       - uses: gradle/actions/setup-gradle@v4
         with:
