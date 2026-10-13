@@ -42,6 +42,16 @@ jobs:
           # the JNI class name the library registers must match hev/htproxy/TProxyService
           strings "$GITHUB_WORKSPACE/app/src/main/jniLibs/arm64-v8a/libhev-socks5-tunnel.so" | grep -i "TProxyService" || true
 
+      - name: Verify JNI signatures match TProxyService.java
+        run: |
+          SO="$GITHUB_WORKSPACE/app/src/main/jniLibs/arm64-v8a/libhev-socks5-tunnel.so"
+          SIGS=$(strings -a "$SO")
+          echo "Signatures found in the library:"
+          grep -E '^\(.*\)(V|Z|I|J|\[J)$' <<< "$SIGS" | sort -u || true
+          grep -qxF '(Ljava/lang/String;I)Z' <<< "$SIGS" || { echo "::error::TProxyStartService signature changed - update TProxyService.java"; exit 1; }
+          grep -qxF '()V' <<< "$SIGS" || { echo "::error::TProxyStopService signature changed - update TProxyService.java"; exit 1; }
+          grep -qxF '()[J' <<< "$SIGS" || { echo "::error::TProxyGetStats signature changed - update TProxyService.java"; exit 1; }
+
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.9"

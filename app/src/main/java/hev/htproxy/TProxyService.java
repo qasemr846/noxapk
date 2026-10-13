@@ -10,7 +10,8 @@ public class TProxyService {
         System.loadLibrary("hev-socks5-tunnel");
     }
 
-    public static native void TProxyStartService(String configPath, int fd);
+    /** The library registers this as (String, int) -> boolean (see logcat: signature "(Ljava/lang/String;I)Z"). */
+    public static native boolean TProxyStartService(String configPath, int fd);
 
     public static native void TProxyStopService();
 

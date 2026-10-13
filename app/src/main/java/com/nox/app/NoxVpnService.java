@@ -197,7 +197,8 @@ public class NoxVpnService extends VpnService {
                 write(yaml, "tunnel:\n  mtu: 1500\n  ipv4: 198.18.0.1\n"
                         + "socks5:\n  port: " + XrayConfig.SOCKS_PORT + "\n  address: 127.0.0.1\n  udp: 'udp'\n"
                         + "misc:\n  log-level: warn\n");
-                TProxyService.TProxyStartService(yaml.getAbsolutePath(), tun.getFd());
+                boolean tunnelOk = TProxyService.TProxyStartService(yaml.getAbsolutePath(), tun.getFd());
+                if (!tunnelOk) throw new Exception("The tunnel failed to start (hev-socks5-tunnel returned false)");
 
                 running = true;
                 startStats(uri, name);
